@@ -2,7 +2,7 @@
 
 Informe de Fase 0: Investigación y Definición
 
-Este documento recoge los resultados de la Fase 0, cumpliendo con los objetivos de recopilación normativa, auditoría de activos actuales y definición de requisitos funcionales para el cumplimiento legal de LAE. He intentado que este informe sea la base para que Juanma y yo no nos dejemos nada fuera antes de empezar a programar.
+Este documento recoge los resultados de la Fase 0, cumpliendo con los objetivos de recopilación normativa, auditoría de activos actuales y definición de requisitos funcionales para el cumplimiento legal de LAE. Su objetivo es servir como base de trabajo para las siguientes fases del proyecto.
 
 ## 1. Documento de Requisitos y Fuentes Legales
 
@@ -14,7 +14,7 @@ He creado esta lista detallada para tener una respuesta inmediata si alguien nos
 
 - Requisito: Identificación clara del operador (NIF/Titular) | Fuente: Art. 13 Ley 13/2011.
 
-    - Por qué lo ponemos: Al vender juego online, el usuario tiene que saber en todo momento quién es el responsable legal de la administración. Es obligatorio que el nombre del titular y su NIF sean visibles para garantizar la transparencia y evitar sitios web fraudulentos.
+    - Por qué lo ponemos: Al vender juego online, el usuario tiene que saber en todo momento quién es el responsable legal de la administración. - Por qué lo ponemos: Al vender juego online, el usuario debe poder identificar claramente quién es el responsable de la administración. La visibilidad del titular y sus datos fiscales refuerza la transparencia y la identificación del operador.
 
 - Requisito: Mensajes de Juego Responsable y Logos | Fuente: Art. 29.2 RD 958/2020.
 
@@ -48,69 +48,77 @@ He creado esta lista detallada para tener una respuesta inmediata si alguien nos
 
 He realizado una auditoría a fondo de la web actual identificando los siguientes Gaps de Cumplimiento (puntos de mejora obligatorios):
 
+
+### Leyenda de criticidad
+| Gravedad | Indicador |
+|---|---|
+| **Crítico** | 🔴 |
+| **Medio** | 🟠 |
+
 ***Verificación de Edad (Age Gate)***
 
-Estado: No existe.
+> Estado: No existe.
 
-Gravedad: 🔴 Crítico.
+> Gravedad: 🔴 Crítico.
 
-Observación: El acceso al sitio es directo, permitiendo que menores de edad visualicen sorteos y productos de azar sin filtrado previo.
+**Observación:** El acceso al sitio es directo, permitiendo que menores de edad visualicen sorteos y productos de azar sin filtrado previo.
 
 ***Identificación del Operador (NIF/Titular)***
 
-Estado: Incompleto.
+> Estado: Incompleto.
 
-Gravedad: 🟠 Medio.
+> Gravedad: 🟠 Medio.
 
-Observación: Se menciona el número de administración, pero faltan los datos fiscales obligatorios del titular (Nombre y NIF) para garantizar la transparencia según la Ley 13/2011.
+**Observación:** Se menciona el número de administración, pero faltan los datos fiscales obligatorios del titular (Nombre y NIF) para garantizar la transparencia según la Ley 13/2011.
 
 ***Sellos Oficiales DGOJ (+18, Juego Seguro, Jugar Bien)***
 
-Estado: Ausente.
+> Estado: Ausente.
 
-Gravedad: 🔴 Crítico.
+> Gravedad: 🔴 Crítico.
+ 
 
-Observación: El pie de página carece de la iconografía oficial requerida. Estos sellos son mandatorios para la validez legal del sitio de venta online.
+**Observación:** El pie de página carece de la iconografía oficial requerida. Estos sellos son mandatorios para la validez legal del sitio de venta online.
 
 ***Enlaces de Autoexclusión y acceso al RGIAJ***
 
-Estado: Ausente.
+> Estado: Ausente.
 
-Gravedad: 🔴 Crítico.
+> Gravedad: 🔴 Crítico.
 
-Observación: No existe una vía rápida y directa para que el usuario pueda solicitar su inscripción en el Registro General de Interdicciones de Acceso al Juego.
+**Observación:** No existe una vía rápida y directa para que el usuario pueda solicitar su inscripción en el Registro General de Interdicciones de Acceso al Juego.
 
 ***Teléfono de Ayuda al Jugador (024)***
 
-Estado: Ausente.
+> Estado: Ausente.
 
-Gravedad: 🟠 Medio.
+> Gravedad: 🟠 Medio.
 
-Observación: No se visualiza el número 024, obligatorio según las últimas directrices de juego responsable.
+**Observación:** No se visualiza el número 024, obligatorio según las últimas directrices de juego responsable.
 
 ***Consentimiento de Edad en Proceso de Pago (Checkout)***
 
-Estado: Ausente.
+> Estado: Ausente.
 
-Gravedad: 🔴 Crítico.
+> Gravedad: 🔴 Crítico.
 
-Observación: El flujo de WooCommerce permite finalizar la compra sin que el cliente declare ser mayor de edad mediante un checkbox independiente.
+**Observación:** El flujo de WooCommerce permite finalizar la compra sin que el cliente declare ser mayor de edad mediante un checkbox independiente.
 
 ***Aviso de azar y probabilidades***
 
-Estado: Ausente.
+> Estado: Ausente.
 
-Gravedad: 🟠 Medio.
+> Gravedad: 🟠 Medio.
 
-Observación: No hay textos que expliquen que los sorteos son aleatorios y no hay garantía de premios (exigido para evitar publicidad engañosa).
+**Observación:** No hay textos que expliquen que los sorteos son aleatorios y no hay garantía de premios (exigido para evitar publicidad engañosa).
 
 ***Página de "Juego Responsable" dedicada***
 
-Estado: No existe.
+> Estado: No existe.
 
-Gravedad: 🔴 Crítico.
+> Gravedad: 🔴 Crítico.
 
-Observación: El RD 958/2020 obliga a tener una sección propia con consejos y recursos, no basta con una frase en el footer.
+**Observación:** El RD 958/2020 obliga a tener una sección propia con consejos y recursos, no basta con una frase en el footer.
 
 ## 3. Definición de Contenidos: Fijos vs. Configurables
 
@@ -224,4 +232,5 @@ SELAE (Loterías y Apuestas - Corporativo): Portal Corporativo
 
 Centro de Ayuda - Teléfono 024: Línea 024 Sanidad
 
-Este documento cierra la Fase 0 y habilita el inicio de la Fase 1 (Arquitectura).
+Este documento deja una base inicial de la Fase 0 y recoge los principales puntos identificados para preparar la Fase 1 (Arquitectura).
+x
