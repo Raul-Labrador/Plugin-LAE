@@ -28,7 +28,12 @@ function lae_compliance_init() {
     require_once LAE_COMPLIANCE_PATH . 'includes/class-lae-hooks.php';
     require_once LAE_COMPLIANCE_PATH . 'includes/class-lae-settings.php';
     require_once LAE_COMPLIANCE_PATH . 'includes/class-lae-shortcodes.php';
-    
+    require_once LAE_COMPLIANCE_PATH . 'includes/class-lae-pages.php';
+
+    new LAE_Compliance_Settings();
+    new LAE_Compliance_Shortcodes();
+    new LAE_Compliance_Hooks();
+    LAE_Compliance_Pages::create_all_if_not_exist();
 }
 
 // Arrancamos el plugin
