@@ -32,16 +32,18 @@ class LAE_Compliance_Shortcodes {
         return ob_get_clean();
     }
 
+    // Cambiamos el html por la plantilla del footer que tenemos dentro de templates
     public function render_responsible_footer() {
         ob_start();
-        ?>
-        <div class="lae-responsible-footer">
-            <span><strong>+18</strong> Prohibida la venta a menores de 18 años</span>
-            <span>Juega con responsabilidad</span>
-            <a href="https://sede.ordenacionjuego.gob.es/es/registro-interdicciones" target="_blank" rel="noopener noreferrer">RGIAJ</a>
-            <a href="tel:024">024</a>
-        </div>
-        <?php
+        
+        $template_path = LAE_COMPLIANCE_PATH . 'templates/footer-bar.php';
+        if ( file_exists( $template_path ) ) {
+            include $template_path;
+        }
+        
         return ob_get_clean();
     }
 }
+
+// Instanciamos
+new LAE_Compliance_Shortcodes();

@@ -27,3 +27,6 @@ class LAE_Compliance_Hooks {
         echo do_shortcode( '[lae_responsible_footer]' );
     }
 }
+
+// Instanciamos
+new LAE_Compliance_Hooks();

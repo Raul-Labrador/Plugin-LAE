@@ -33,3 +33,17 @@ function lae_compliance_init() {
 
 // Arrancamos el plugin
 add_action( 'plugins_loaded', 'lae_compliance_init' );
+
+/**
+ * LÓGICA DE ACTIVACIÓN
+ * Se ejecuta solo UNA VEZ cuando se activa el plugin
+ */
+function lae_compliance_activate() {
+    require_once LAE_COMPLIANCE_PATH . 'includes/class-lae-pages.php';
+    
+    LAE_Compliance_Pages::create_all_if_not_exist();
+    
+    flush_rewrite_rules();
+}
+
+register_activation_hook( __FILE__, 'lae_compliance_activate' );
