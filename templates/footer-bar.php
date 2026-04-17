@@ -1,7 +1,7 @@
 <?php
 /**
- * Plantilla visual para la barra de cumplimiento del pie de página.
- * Puede ser llamada desde un Widget o un Shortcode.
+ * Visual template for the footer compliance bar.
+ * Can be called from a widget or a shortcode.
  */
 
 if ( ! defined( 'ABSPATH' ) ) {

@@ -32,10 +32,10 @@ class LAE_Compliance_Shortcodes {
         return ob_get_clean();
     }
 
-    // Cambiamos el html por la plantilla del footer que tenemos dentro de templates
+    // Replace the HTML with the footer template located in /templates
     public function render_responsible_footer() {
         ob_start();
-        
+
         $template_path = LAE_COMPLIANCE_PATH . 'templates/footer-bar.php';
         if ( file_exists( $template_path ) ) {
             include $template_path;
@@ -45,5 +45,5 @@ class LAE_Compliance_Shortcodes {
     }
 }
 
-// Instanciamos
+// Instantiate the class so it works
 new LAE_Compliance_Shortcodes();

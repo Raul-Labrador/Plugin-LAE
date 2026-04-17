@@ -1,13 +1,22 @@
-/* 1. WIDGET DE FOOTER (Juego Responsable) */
+
+/* 1. WIDGET DE FOOTER */
 .lae-compliance-footer-bar {
+    position: fixed;
+    left: 0;
+    bottom: 0px;
+    z-index: 999999;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
     align-items: center;
     gap: 20px;
-    padding: 15px 0;
-    border-top: 1px solid rgba(0,0,0,0.1);
+    padding: 15px 20px;
     width: 100%;
+    box-sizing: border-box;
+    background-color: #111;
+    color: #fff;
+    border-top: 1px solid rgba(255,255,255,0.15);
+    
 }
 
 .lae-compliance-logos {
@@ -39,7 +48,7 @@
     gap: 15px;
 }
 
-/* Los enlaces heredan el color nativo de la web */
+/* Links inherit the website's default color */
 .lae-btn-rgiaj,
 .lae-btn-024 {
     text-decoration: none;

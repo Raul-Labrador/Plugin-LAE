@@ -28,5 +28,5 @@ class LAE_Compliance_Hooks {
     }
 }
 
-// Instanciamos
+// Instantiate
 new LAE_Compliance_Hooks();

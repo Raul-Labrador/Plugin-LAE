@@ -1,6 +1,6 @@
 <?php
 /**
- * Clase para gestionar los ajustes del plugin en el wp-admin.
+ * Class to manage the plugin settings in the WordPress admin.
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -10,14 +10,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 class LAE_Compliance_Settings {
 
     public function __construct() {
-        // Añadir el menú al panel de administración
+        // Add the menu item to the admin panel
         add_action( 'admin_menu', array( $this, 'add_settings_page' ) );
-        // Registrar los ajustes
+        // Register the settings
         add_action( 'admin_init', array( $this, 'register_settings' ) );
     }
 
     /**
-     * Crea la entrada en el menú de Ajustes
+     * Creates the entry in the Settings menu
      */
     public function add_settings_page() {
         add_options_page(
@@ -30,12 +30,12 @@ class LAE_Compliance_Settings {
     }
 
     /**
-     * Registra los campos en la base de datos
+     * Registers the fields in the database
      */
     public function register_settings() {
         register_setting( 'lae_compliance_group', 'lae_compliance_options' );
 
-        // Sección 1: Datos de la Administración
+        // Section 1: Administration data
         add_settings_section( 'lae_section_admin', 'Datos de la Administración', null, 'lae-compliance' );
 
         $fields = array(
@@ -58,7 +58,7 @@ class LAE_Compliance_Settings {
             );
         }
 
-        // Sección 2: Módulos y Apariencia (Toggles y Colores)
+        // Section 2: Modules and Appearance (toggles and colors)
         add_settings_section( 'lae_section_appearance', 'Personalización y Módulos', null, 'lae-compliance' );
 
         add_settings_field( 'enable_age_gate', 'Activar Age Gate', array( $this, 'render_toggle_field' ), 'lae-compliance', 'lae_section_appearance', array( 'id' => 'enable_age_gate' ) );
@@ -66,7 +66,7 @@ class LAE_Compliance_Settings {
     }
 
     /**
-     * Callbacks para renderizar los campos
+     * Callbacks to render the fields
      */
     public function render_input_field( $args ) {
         $options = get_option( 'lae_compliance_options' );
@@ -102,5 +102,5 @@ class LAE_Compliance_Settings {
     }
 }
 
-// Instanciar la clase para que funcione
+// Instantiate the class so it works
 new LAE_Compliance_Settings();
