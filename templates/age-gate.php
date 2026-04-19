@@ -1,6 +1,6 @@
 <?php
 /**
- * Plantilla HTML para el modal de verificación de edad (Age Gate).
+ * HTML template for the age verification modal (Age Gate).
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -8,7 +8,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 $options = get_option( 'lae_compliance_options', array() );
-// Por si el cliente no ha rellenado el nombre de la administración, ponemos un texto genérico
+
 $admin_name = ! empty( $options['admin_name'] ) ? esc_html( $options['admin_name'] ) : 'esta Administración de Loterías';
 ?>
 

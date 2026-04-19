@@ -1,6 +1,6 @@
 <?php
 /**
- * Clase para registrar los bloques de Gutenberg del plugin.
+ * Class to register the plugin's Gutenberg blocks.
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -14,14 +14,13 @@ class LAE_Compliance_Blocks {
     }
 
     /**
-     * Registra todos los bloques personalizados del plugin.
+     * Register all custom blocks in the plugin.
      */
     public function register_gutenberg_blocks() {
         if ( ! function_exists( 'register_block_type' ) ) {
             return;
         }
 
-        // Array con los nombres de las carpetas de nuestros bloques
         $blocks = array(
             'age-warning',
             'exclusion-links',
@@ -38,5 +37,5 @@ class LAE_Compliance_Blocks {
     }
 }
 
-// Instanciar la clase para que el hook se active
+// Instantiate the class so that the hook is activated
 new LAE_Compliance_Blocks();

@@ -1,6 +1,6 @@
 <?php
 /**
- * Clase encargada de gestionar el control de acceso para mayores de 18 años.
+ * Class responsible for managing access control for people over 18 years old.
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -15,7 +15,7 @@ class LAE_Compliance_Age_Gate {
     }
 
     /**
-     * Carga el JavaScript y las variables CSS de color.
+     * Load the JavaScript and CSS color variables.
      */
     public function enqueue_assets() {
         $options = get_option( 'lae_compliance_options', array() );
@@ -29,7 +29,7 @@ class LAE_Compliance_Age_Gate {
             LAE_COMPLIANCE_URL . 'assets/js/lae-compliance.js',
             array(),
             LAE_COMPLIANCE_VERSION,
-            true // true = cargar en el footer para no ralentizar la web
+            true // true = Load in the footer to avoid slowing down the website
         );
 
         $color = ! empty( $options['age_gate_color'] ) ? esc_attr( $options['age_gate_color'] ) : '#000000';
@@ -46,7 +46,7 @@ class LAE_Compliance_Age_Gate {
     }
 
     /**
-     * Imprime el HTML del modal llamando a su plantilla.
+     * Print the modal's HTML by calling its template.
      */
     public function render_modal() {
         if ( is_admin() ) {
@@ -55,7 +55,7 @@ class LAE_Compliance_Age_Gate {
 
         $options = get_option( 'lae_compliance_options', array() );
         
-        // Comprobamos si el administrador ha marcado el check de "Activar Age Gate"
+        // Check if the administrator has checked the "Activate Age Gate" box.
         if ( empty( $options['enable_age_gate'] ) ) {
             return;
         }
@@ -70,5 +70,5 @@ class LAE_Compliance_Age_Gate {
     }
 }
 
-// Instanciamos la clase para que los hooks empiecen a escuchar
+// We instantiate the class so that the hooks start listening
 new LAE_Compliance_Age_Gate();

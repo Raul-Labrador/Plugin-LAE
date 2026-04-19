@@ -1,5 +1,5 @@
 /**
- * Lógica del Age Gate para Lotto LAE Compliance
+ * Age Gate Logic for Lotto LAE Compliance
  */
 document.addEventListener('DOMContentLoaded', function() {
     
