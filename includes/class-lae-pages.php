@@ -9,7 +9,15 @@ class LAE_Compliance_Pages {
         $pages = array(
             'juego-responsable' => array(
                 'title'   => 'Juego responsable',
-                'content' => '[lae_responsible_footer]',
+                'content' => '[lae_responsible_gaming_page]',
+            ),
+            'autoexclusion' => array(
+                'title'   => 'Autoexclusión',
+                'content' => '[lae_autoexclusion_page]',
+            ),
+            'politica-devoluciones-loteria' => array(
+                'title'   => 'Política de devoluciones lotería',
+                'content' => '[lae_returns_policy_page]',
             ),
             'identificacion-operador' => array(
                 'title'   => 'Identificación del operador',
@@ -21,13 +29,15 @@ class LAE_Compliance_Pages {
             $existing_page = get_page_by_path( $slug );
 
             if ( ! $existing_page ) {
-                wp_insert_post( array(
-                    'post_title'   => $page_data['title'],
-                    'post_name'    => $slug,
-                    'post_content' => $page_data['content'],
-                    'post_status'  => 'publish',
-                    'post_type'    => 'page',
-                ) );
+                wp_insert_post(
+                    array(
+                        'post_title'   => $page_data['title'],
+                        'post_name'    => $slug,
+                        'post_content' => $page_data['content'],
+                        'post_status'  => 'publish',
+                        'post_type'    => 'page',
+                    )
+                );
             }
         }
     }
