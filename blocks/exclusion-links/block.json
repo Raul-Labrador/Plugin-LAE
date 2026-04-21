@@ -1,0 +1,10 @@
+{
+    "$schema": "https://schemas.wp.org/trunk/block.json",
+    "apiVersion": 2,
+    "name": "lae/exclusion-links",
+    "title": "Enlaces Autoexclusión",
+    "category": "widgets",
+    "icon": "external",
+    "description": "Grid de enlaces a recursos de autoexclusión (RGIAJ) y ayuda.",
+    "render": "file:./render.php"
+}

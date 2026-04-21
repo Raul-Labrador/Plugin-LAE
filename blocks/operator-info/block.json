@@ -1,0 +1,10 @@
+{
+    "$schema": "https://schemas.wp.org/trunk/block.json",
+    "apiVersion": 2,
+    "name": "lae/operator-info",
+    "title": "Datos del Operador LAE",
+    "category": "widgets",
+    "icon": "id",
+    "description": "Muestra la tarjeta con los datos legales de la administración.",
+    "render": "file:./render.php"
+}
