@@ -29,6 +29,7 @@ function lae_compliance_init() {
     require_once LAE_COMPLIANCE_PATH . 'includes/class-lae-settings.php';
     require_once LAE_COMPLIANCE_PATH . 'includes/class-lae-shortcodes.php';
     require_once LAE_COMPLIANCE_PATH . 'includes/class-lae-woocommerce.php';
+    require_once LAE_COMPLIANCE_PATH . 'includes/class-lae-integration.php';
     
 }
 

@@ -2,9 +2,10 @@
 /**
  * Operator Data block render
  */
-$options = get_option( 'lae_compliance_options', array() );
-$admin_name = ! empty( $options['admin_name'] ) ? esc_html( $options['admin_name'] ) : 'Administración de Loterías';
-$nif = ! empty( $options['admin_nif'] ) ? esc_html( $options['admin_nif'] ) : 'No especificado';
+$operator_data = LAE_Compliance_Integration::get_operator_data();
+
+$admin_name = esc_html( $operator_data['admin_name'] );
+$nif        = esc_html( $operator_data['admin_nif'] );
 ?>
 
 <div class="lae-block-operator-info" style="border: 1px solid #ccc; padding: 20px; border-radius: 8px; background: #f9f9f9;">

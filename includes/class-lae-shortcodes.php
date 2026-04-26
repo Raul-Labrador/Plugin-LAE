@@ -19,7 +19,7 @@ class LAE_Compliance_Shortcodes {
     }
 
     public function render_operator_info() {
-        $options = get_option( 'lae_compliance_options', array() );
+        $options = LAE_Compliance_Integration::get_operator_data();
 
         $admin_name   = $options['admin_name'] ?? '';
         $admin_number = $options['admin_number'] ?? '';
@@ -53,8 +53,8 @@ class LAE_Compliance_Shortcodes {
     }
 
     public function render_responsible_gaming_page() {
-        $options = get_option( 'lae_compliance_options', array() );
-        $admin_name = $options['admin_name'] ?? 'esta administración';
+        $operator_data = LAE_Compliance_Integration::get_operator_data();
+        $admin_name = $operator_data['admin_name'];
 
         ob_start();
         ?>
@@ -92,8 +92,8 @@ class LAE_Compliance_Shortcodes {
     }
 
     public function render_returns_policy_page() {
-        $options = get_option( 'lae_compliance_options', array() );
-        $admin_name = $options['admin_name'] ?? 'esta administración';
+        $operator_data = LAE_Compliance_Integration::get_operator_data();
+        $admin_name = $operator_data['admin_name'];
 
         ob_start();
         ?>
