@@ -8,19 +8,18 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
-
 $options = get_option( 'lae_compliance_options', array() );
 ?>
 
-<div class="lae-compliance-footer-bar">
+<div class="lae-compliance-footer-bar" id="lae-footer-bar">
     
     <div class="lae-compliance-logos">
         <span class="lae-logo-18" aria-label="Mayor de 18 años">
             <strong>+18</strong>
         </span>
 
-        <span class="lae-badge">Juego Seguro</span>
-        <span class="lae-badge">Jugar Bien</span>
+        <a href="https://www.ordenacionjuego.es/participantes-juego/juego-seguro" target="_blank" rel="noopener noreferrer" class="lae-badge">Juego Seguro</a>
+        <a href="https://sede.ordenacionjuego.gob.es/es/jugar-bien" target="_blank" rel="noopener noreferrer" class="lae-badge">Jugar Bien</a>
     </div>
 
     <div class="lae-compliance-text">
@@ -40,3 +39,12 @@ $options = get_option( 'lae_compliance_options', array() );
     </div>
 
 </div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var footerBar = document.getElementById('lae-footer-bar');
+        if (footerBar) {
+            document.body.style.paddingBottom = footerBar.offsetHeight + 'px';
+        }
+    });
+</script>
