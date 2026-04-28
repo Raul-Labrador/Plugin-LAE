@@ -137,6 +137,30 @@ body.lae-no-scroll {
     overflow: hidden;
 }
 
+/* Estilos para las políticas internas del Footer */
+.lae-internal-policies {
+    font-size: 0.85em;
+    margin-right: 15px;
+    opacity: 0.85;
+}
+
+.lae-separator {
+    margin: 0 5px;
+}
+
+.lae-internal-link {
+    color: inherit;
+    text-decoration: none;
+    transition: color 0.3s ease, opacity 0.3s ease;
+}
+
+/* El ansiado Hover */
+.lae-internal-link:hover {
+    text-decoration: underline;
+    color: #d4af37; /* Dorado para mantener la coherencia */
+    opacity: 1;
+}
+
 /* RESPONSIVE */
 @media (max-width: 768px) {
     .lae-compliance-footer-bar {
