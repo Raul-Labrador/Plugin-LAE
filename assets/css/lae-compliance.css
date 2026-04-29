@@ -27,13 +27,12 @@
 .lae-logo-18 strong {
     font-size: 1.1rem;
     border: 2px solid currentColor; 
-    border-radius: 4px; /* Changed from 50% to 4px to make it square */
+    border-radius: 4px;
     padding: 4px 6px;
     display: inline-block;
     line-height: 1;
 }
 
-/* Badges are now interactive links */
 a.lae-badge {
     background-color: #f0f0f0;
     color: #333;
@@ -46,11 +45,10 @@ a.lae-badge {
 }
 
 a.lae-badge:hover {
-    background-color: #d4af37; /* Elegant gold */
+    background-color: #d4af37;
     color: #111;
 }
 
-/* Styles for internal policies and links in the Footer */
 .lae-compliance-links {
     display: flex;
     align-items: center;
@@ -64,7 +62,6 @@ a.lae-badge:hover {
     user-select: none;
 }
 
-/* Use the --lae-footer-text variable (White) and force with !important to override the theme's blue */
 .lae-footer-link,
 .lae-btn-rgiaj,
 .lae-btn-024 {
@@ -81,7 +78,6 @@ a.lae-badge:hover {
     opacity: 1;
 }
 
-/* Use the --lae-footer-hover variable (Customizable blue or gold) */
 .lae-footer-link:hover,
 .lae-btn-rgiaj:hover,
 .lae-btn-024:hover {
@@ -89,6 +85,7 @@ a.lae-badge:hover {
     text-decoration: underline !important;
     opacity: 1;
 }
+
 
 /* AGE GATE */
 .lae-age-gate-overlay {
@@ -149,7 +146,7 @@ a.lae-badge:hover {
     display: flex;
     justify-content: center;
     gap: 20px;
-    margin-bottom: 25px; /* Space before the cookie warning */
+    margin-bottom: 25px;
 }
 
 /* Individual buttons */
@@ -194,7 +191,9 @@ body.lae-no-scroll {
     overflow: hidden;
 }
 
-/* RESPONSIVE */
+
+/* RESPONSIVE GLOBALS */
+   
 @media (max-width: 768px) {
     .lae-compliance-footer-bar {
         flex-direction: column;
@@ -208,5 +207,177 @@ body.lae-no-scroll {
     .lae-age-gate-buttons {
         flex-direction: column;
         gap: 10px;
+    }
+}
+
+
+/* LEGAL PAGES & SHORTCODES / BLOCKS */
+
+/* General Shortcode Wrapper */
+.lae-shortcode-wrapper {
+    margin: 20px 0;
+    box-sizing: border-box;
+}
+
+/* Unified Square Inline +18 Logo for all blocks */
+.lae-logo-18 strong {
+    font-size: 1.1rem;
+    border: 2px solid currentColor;
+    border-radius: 4px !important;
+    padding: 2px 6px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+    margin-right: 10px;
+}
+
+/* Operator Info Card */
+.lae-operator-info-card {
+    background: #ffffff !important;
+    border: 1px solid #eef0f2 !important;
+    border-radius: 8px !important;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05) !important;
+    padding: 20px;
+    margin: 20px 0;
+}
+
+.lae-operator-title {
+    color: #111;
+    margin-top: 0;
+    margin-bottom: 15px;
+    font-weight: bold;
+}
+
+.lae-operator-info-card ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.lae-operator-info-card li {
+    margin-bottom: 8px;
+    color: #333;
+}
+
+/* Enhanced Clickable Cards */
+.lae-sc-card-link, 
+.lae-sc-phone-link {
+    background: #ffffff !important; 
+    border: 1px solid #d1d5db !important;
+    border-bottom: 3px solid #e5e7eb !important; 
+    border-radius: 8px !important;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05) !important; 
+    transition: all 0.2s ease !important;
+    color: #333 !important;
+    text-decoration: none !important;
+}
+
+/* Hover effect: the button "sinks" and bottom border gets colored */
+.lae-sc-card-link:hover, 
+.lae-sc-phone-link:hover {
+    transform: translateY(-2px) !important;
+    border-bottom-color: var(--lae-footer-hover, #d4af37) !important; 
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* Grid layout for Exclusion Links */
+.lae-sc-exclusion-links {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+}
+
+.lae-sc-card-link {
+    padding: 20px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Phone specific styling */
+.lae-sc-phone {
+    display: inline-block;
+}
+
+.lae-sc-phone-link {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 24px;
+}
+
+/* Probability block */
+.lae-legal-page-links-probabilidad {
+    background-color: #fdfae6 !important;
+    border: 1px solid #eef0f2 !important;
+    border-radius: 8px !important;
+    color: #444 !important;
+    font-size: 0.85em;
+    padding: 15px !important;
+}
+
+/* Redesigned Age Warning Block */
+.lae-sc-age-warning {
+    background-color: #ffffff !important;
+    border: 1px solid #eee !important;
+    border-left: 6px solid #d32f2f !important;
+    color: #333 !important;
+    padding: 20px !important;
+    border-radius: 8px !important;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05) !important; 
+}
+
+.lae-sc-age-warning h4 {
+    margin: 0 0 8px 0;
+    color: #b71c1c !important;
+    font-size: 1.3rem;
+    font-weight: bold;
+}
+
+.lae-sc-age-warning p {
+    margin: 0;
+    font-size: 0.95rem;
+    color: #444 !important;
+    line-height: 1.5;
+}
+
+/* Responsible Gaming Banner */
+.lae-sc-responsible-gaming {
+    background-color: #111 !important;
+    color: #fff !important;
+    text-align: center;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px !important;
+    border-radius: 8px !important;
+}
+
+.lae-sc-responsible-gaming p {
+    margin: 0;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    color: #fff !important;
+}
+
+/* Force the +18 logo inside the black banner to be white and square */
+.lae-sc-responsible-gaming .lae-logo-18 strong {
+    color: #fff !important;
+    border-color: #fff !important;
+    margin-right: 15px;
+}
+
+/* --- Shortcode Responsive Adjustments --- */
+@media (max-width: 600px) {
+    .lae-sc-age-warning {
+        flex-direction: column;
+        text-align: center;
+        padding: 30px !important;
     }
 }

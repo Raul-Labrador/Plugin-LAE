@@ -3,24 +3,24 @@
  * Render of the Self-Exclusion Links block
  */
 ?>
-<div class="lae-block-exclusion-links" style="margin: 20px 0;">
-    <h3 style="text-align: center; margin-bottom: 15px;">Recursos de Ayuda y Autoexclusión</h3>
+<div class="lae-shortcode-wrapper lae-block-exclusion-links">
+    <h3 style="text-align: center; margin-bottom: 20px; color: #111;">Recursos de Ayuda y Autoexclusión</h3>
     
-    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
+    <div class="lae-sc-exclusion-links">
         
-        <a href="https://sede.ordenacionjuego.gob.es/es/registro-interdicciones" target="_blank" rel="noopener noreferrer" style="background: #eceff1; border: 1px solid #cfd8dc; padding: 15px; text-align: center; border-radius: 6px; text-decoration: none; color: #37474f; transition: all 0.3s ease;">
+        <a href="https://sede.ordenacionjuego.gob.es/es/registro-interdicciones" target="_blank" rel="noopener noreferrer" class="lae-sc-card-link">
             <strong style="display: block; font-size: 1.1em; margin-bottom: 5px;">Registro RGIAJ</strong>
-            <span style="font-size: 0.85em;">Solicitar autoexclusión estatal</span>
+            <span style="font-size: 0.85em; color: #666;">Solicitar autoexclusión estatal</span>
         </a>
 
-        <a href="https://www.jugarbien.es" target="_blank" rel="noopener noreferrer" style="background: #eceff1; border: 1px solid #cfd8dc; padding: 15px; text-align: center; border-radius: 6px; text-decoration: none; color: #37474f; transition: all 0.3s ease;">
+        <a href="https://www.jugarbien.es" target="_blank" rel="noopener noreferrer" class="lae-sc-card-link">
             <strong style="display: block; font-size: 1.1em; margin-bottom: 5px;">Jugar Bien</strong>
-            <span style="font-size: 0.85em;">Información y prevención</span>
+            <span style="font-size: 0.85em; color: #666;">Información y prevención</span>
         </a>
 
-        <a href="tel:024" style="background: #eceff1; border: 1px solid #cfd8dc; padding: 15px; text-align: center; border-radius: 6px; text-decoration: none; color: #37474f; transition: all 0.3s ease;">
+        <a href="tel:024" class="lae-sc-card-link">
             <strong style="display: block; font-size: 1.1em; margin-bottom: 5px;">☎ Teléfono 024</strong>
-            <span style="font-size: 0.85em;">Línea de atención gratuita</span>
+            <span style="font-size: 0.85em; color: #666;">Línea de atención gratuita</span>
         </a>
         
     </div>
