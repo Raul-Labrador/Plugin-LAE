@@ -138,26 +138,38 @@ body.lae-no-scroll {
 }
 
 /* Estilos para las políticas internas del Footer */
-.lae-internal-policies {
-    font-size: 0.85em;
-    margin-right: 15px;
-    opacity: 0.85;
+.lae-compliance-links {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
 }
 
 .lae-separator {
-    margin: 0 5px;
+    opacity: 0.4;
+    font-size: 0.9em;
+    user-select: none;
 }
 
-.lae-internal-link {
-    color: inherit;
-    text-decoration: none;
+/* Usamos la variable --lae-footer-text (Blanco) y forzamos con !important para matar el azul del tema */
+.lae-footer-link {
+    color: var(--lae-footer-text, #ffffff) !important;
+    text-decoration: none !important;
+    font-size: 0.85em;
+    opacity: 0.85;
     transition: color 0.3s ease, opacity 0.3s ease;
 }
 
-/* El ansiado Hover */
-.lae-internal-link:hover {
-    text-decoration: underline;
-    color: #d4af37; /* Dorado para mantener la coherencia */
+.lae-fw-bold {
+    font-weight: bold;
+    font-size: 0.9em;
+    opacity: 1;
+}
+
+/* Usamos la variable --lae-footer-hover (Azul personalizable) */
+.lae-footer-link:hover {
+    color: var(--lae-footer-hover, #1e73be) !important;
+    text-decoration: underline !important;
     opacity: 1;
 }
 

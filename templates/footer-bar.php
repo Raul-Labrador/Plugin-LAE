@@ -9,18 +9,18 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 $options = get_option( 'lae_compliance_options', array() );
 
-// Si está desactivado en ajustes, no mostramos nada
 if ( empty( $options['enable_footer'] ) ) {
     return; 
 }
 
-// Colores desde el panel de ajustes (con valores por defecto)
+// Rescatamos los colores del panel (con valores por defecto)
 $bg_color    = ! empty( $options['footer_bg_color'] ) ? $options['footer_bg_color'] : '#111111';
 $text_color  = ! empty( $options['footer_text_color'] ) ? $options['footer_text_color'] : '#ffffff';
+$hover_color = ! empty( $options['footer_hover_color'] ) ? $options['footer_hover_color'] : '#1e73be'; // Azul por defecto
 $position    = ! empty( $options['footer_position'] ) ? $options['footer_position'] : 'fixed';
 ?>
 
-<div class="lae-compliance-footer-bar" id="lae-footer-bar" style="background-color: <?php echo esc_attr($bg_color); ?>; color: <?php echo esc_attr($text_color); ?>; position: <?php echo esc_attr($position); ?>;">
+<div class="lae-compliance-footer-bar" id="lae-footer-bar" style="background-color: <?php echo esc_attr($bg_color); ?>; color: <?php echo esc_attr($text_color); ?>; position: <?php echo esc_attr($position); ?>; --lae-footer-text: <?php echo esc_attr($text_color); ?>; --lae-footer-hover: <?php echo esc_attr($hover_color); ?>;">
     
     <div class="lae-compliance-logos">
         <span class="lae-logo-18" aria-label="Mayor de 18 años">
@@ -37,17 +37,11 @@ $position    = ! empty( $options['footer_position'] ) ? $options['footer_positio
 
     <div class="lae-compliance-links">
         <a href="<?php echo esc_url( site_url('/juego-responsable/') ); ?>" class="lae-footer-link">Política de Juego</a> 
-        
         <span class="lae-separator">|</span>
-        
         <a href="<?php echo esc_url( site_url('/politica-de-devoluciones/') ); ?>" class="lae-footer-link">Política de Devoluciones</a>
-        
         <span class="lae-separator">|</span>
-        
-        <a href="https://sede.ordenacionjuego.gob.es/es/formularios-impresos" target="_blank" rel="noopener noreferrer" class="lae-footer-link lae-fw-bold">RGIAJ</a>
-        
+        <a href="https://www.ordenacionjuego.es/participantes-juego/juego-seguro/rgiaj" target="_blank" rel="noopener noreferrer" class="lae-footer-link lae-fw-bold">RGIAJ</a>
         <span class="lae-separator">|</span>
-        
         <a href="tel:024" class="lae-footer-link lae-fw-bold">☎ 024</a>
     </div>
 

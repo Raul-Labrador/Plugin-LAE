@@ -62,6 +62,7 @@ class LAE_Compliance_Settings {
 
         add_settings_field( 'footer_bg_color', 'Color de fondo', array( $this, 'render_color_field' ), 'lae-compliance', 'lae_section_footer', array( 'id' => 'footer_bg_color', 'default' => '#111111' ) );
         add_settings_field( 'footer_text_color', 'Color de texto', array( $this, 'render_color_field' ), 'lae-compliance', 'lae_section_footer', array( 'id' => 'footer_text_color', 'default' => '#ffffff' ) );
+        add_settings_field( 'footer_hover_color', 'Color de enlaces (Hover)', array( $this, 'render_color_field' ), 'lae-compliance', 'lae_section_footer', array( 'id' => 'footer_hover_color', 'default' => '#1e73be' ) );
 
         add_settings_field( 'footer_show_on', 'Mostrar en', array( $this, 'render_select_field' ), 'lae-compliance', 'lae_section_footer', array( 
             'id' => 'footer_show_on', 
