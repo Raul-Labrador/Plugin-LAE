@@ -1,36 +1,38 @@
 <?php
 /**
- * HTML template for the age verification modal (Age Gate).
+ * Visual template for the Age Gate modal.
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
+// Recuperamos las opciones para sacar el nombre de la empresa
 $options = get_option( 'lae_compliance_options', array() );
-
-$admin_name = ! empty( $options['admin_name'] ) ? esc_html( $options['admin_name'] ) : 'esta Administración de Loterías';
+$admin_name = ! empty( $options['admin_name'] ) ? $options['admin_name'] : 'nuestra web';
 ?>
 
-<div id="lae-age-gate-modal" class="lae-age-gate-overlay" style="display: none;">
+<div id="lae-age-gate-overlay" class="lae-age-gate-overlay" style="display: none;" role="dialog" aria-modal="true" aria-labelledby="lae-age-title">
     
     <div class="lae-age-gate-content">
-        <h2>Atención</h2>
-        <p>
-            Bienvenido a <strong><?php echo $admin_name; ?></strong>.<br><br>
-            De acuerdo con la legislación vigente, el acceso a esta plataforma está estrictamente prohibido a menores de edad.<br><br>
-            ¿Eres mayor de 18 años?
-        </p>
+        
+        <div class="lae-age-welcome">
+            Bienvenido a <strong><?php echo esc_html( $admin_name ); ?></strong>
+        </div>
+
+        <h2 id="lae-age-title" class="lae-age-title">¿Eres mayor de 18 años?</h2>
+
+        <div class="lae-age-text">
+            <p>El acceso y uso de este sitio web está estrictamente prohibido a menores de 18 años.</p>
+        </div>
 
         <div class="lae-age-gate-buttons">
-            <button id="lae-btn-age-yes" class="lae-btn-yes">Sí, soy mayor de 18 años</button>
-            
-            <button id="lae-btn-age-no" class="lae-btn-no">No, soy menor de 18 años</button>
+            <button id="lae-btn-yes" class="lae-btn-yes">SÍ, SOY MAYOR</button>
+            <button id="lae-btn-no" class="lae-btn-no">NO, SALIR</button>
         </div>
-        
-        <p style="font-size: 0.8rem; margin-top: 20px; color: #666;">
-            Al pulsar en "Sí", confirmas tu mayoría de edad y aceptas el uso de una cookie técnica para recordar tu elección.
-        </p>
+
+        <p class="lae-cookie-warning">Al confirmar, aceptas el uso de una cookie técnica estrictamente necesaria para guardar tu preferencia de acceso.</p>
+
     </div>
 
 </div>
