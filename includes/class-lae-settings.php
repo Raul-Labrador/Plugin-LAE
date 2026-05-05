@@ -10,15 +10,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 class LAE_Compliance_Settings {
 
     public function __construct() {
-        // Add the menu item to the admin panel
         add_action( 'admin_menu', array( $this, 'add_settings_page' ) );
-        // Register the settings
         add_action( 'admin_init', array( $this, 'register_settings' ) );
     }
 
-    /**
-     * Creates the entry in the Settings menu
-     */
     public function add_settings_page() {
         add_options_page(
             'Cumplimiento LAE',
@@ -29,45 +24,58 @@ class LAE_Compliance_Settings {
         );
     }
 
-    /**
-     * Registers the fields in the database
-     */
     public function register_settings() {
         register_setting( 'lae_compliance_group', 'lae_compliance_options' );
 
-        // Section 1: Administration data
+        // Administration Data
         add_settings_section( 'lae_section_admin', 'Datos de la Administración', null, 'lae-compliance' );
 
-        $fields = array(
+        $admin_fields = array(
             'admin_name'   => 'Nombre de la administración',
             'admin_number' => 'Número de administración LAE',
             'holder_name'  => 'Nombre del titular / responsable',
             'holder_nif'   => 'NIF del titular',
             'address'      => 'Dirección física',
-            'license'      => 'CNAE / Licencia (si aplica)',
         );
 
-        foreach ( $fields as $id => $label ) {
-            add_settings_field(
-                $id,
-                $label,
-                array( $this, 'render_input_field' ),
-                'lae-compliance',
-                'lae_section_admin',
-                array( 'id' => $id )
-            );
+        foreach ( $admin_fields as $id => $label ) {
+            add_settings_field( $id, $label, array( $this, 'render_input_field' ), 'lae-compliance', 'lae_section_admin', array( 'id' => $id ) );
         }
 
-        // Section 2: Modules and Appearance (toggles and colors)
-        add_settings_section( 'lae_section_appearance', 'Personalización y Módulos', null, 'lae-compliance' );
+        // Age Gate Settings
+        add_settings_section( 'lae_section_age_gate', 'Configuración Age Gate (Popup +18)', null, 'lae-compliance' );
+        add_settings_field( 'enable_age_gate', 'Activar Age Gate', array( $this, 'render_toggle_field' ), 'lae-compliance', 'lae_section_age_gate', array( 'id' => 'enable_age_gate' ) );
+        add_settings_field( 'age_gate_bg_color', 'Color de fondo Popup', array( $this, 'render_color_field' ), 'lae-compliance', 'lae_section_age_gate', array( 'id' => 'age_gate_bg_color', 'default' => '#ffffff' ) );
 
-        add_settings_field( 'enable_age_gate', 'Activar Age Gate', array( $this, 'render_toggle_field' ), 'lae-compliance', 'lae_section_appearance', array( 'id' => 'enable_age_gate' ) );
-        add_settings_field( 'age_gate_color', 'Color Age Gate', array( $this, 'render_color_field' ), 'lae-compliance', 'lae_section_appearance', array( 'id' => 'age_gate_color' ) );
+        // Footer Bar Settings
+        add_settings_section( 'lae_section_footer', 'Configuración del Footer Compliance', null, 'lae-compliance' );
+        
+        add_settings_field( 'enable_footer', 'Activar Footer Bar', array( $this, 'render_toggle_field' ), 'lae-compliance', 'lae_section_footer', array( 'id' => 'enable_footer' ) );
+        
+        add_settings_field( 'footer_position', 'Posición', array( $this, 'render_select_field' ), 'lae-compliance', 'lae_section_footer', array( 
+            'id' => 'footer_position', 
+            'options' => array(
+                'fixed'  => 'Fijo en la parte inferior (Sticky)',
+                'static' => 'Estático al final del contenido'
+            )
+        ) );
+
+        add_settings_field( 'footer_bg_color', 'Color de fondo', array( $this, 'render_color_field' ), 'lae-compliance', 'lae_section_footer', array( 'id' => 'footer_bg_color', 'default' => '#111111' ) );
+        add_settings_field( 'footer_text_color', 'Color de texto', array( $this, 'render_color_field' ), 'lae-compliance', 'lae_section_footer', array( 'id' => 'footer_text_color', 'default' => '#ffffff' ) );
+        add_settings_field( 'footer_hover_color', 'Color de enlaces (Hover)', array( $this, 'render_color_field' ), 'lae-compliance', 'lae_section_footer', array( 'id' => 'footer_hover_color', 'default' => '#1e73be' ) );
+
+        add_settings_field( 'footer_show_on', 'Mostrar en', array( $this, 'render_select_field' ), 'lae-compliance', 'lae_section_footer', array( 
+            'id' => 'footer_show_on', 
+            'options' => array(
+                'all'  => 'Toda la web',
+                'shop' => 'Solo páginas de tienda (WooCommerce)',
+                'home' => 'Solo en la página de inicio'
+            )
+        ) );
     }
 
-    /**
-     * Callbacks to render the fields
-     */
+    /* CALLBACKS */
+
     public function render_input_field( $args ) {
         $options = get_option( 'lae_compliance_options' );
         $value   = isset( $options[ $args['id'] ] ) ? esc_attr( $options[ $args['id'] ] ) : '';
@@ -76,14 +84,25 @@ class LAE_Compliance_Settings {
 
     public function render_toggle_field( $args ) {
         $options = get_option( 'lae_compliance_options' );
-        $checked = isset( $options[ $args['id'] ] ) ? checked( 1, $options[ $args['id'] ], false ) : '';
+        $checked = isset( $options[ $args['id'] ] ) && $options[ $args['id'] ] == 1 ? 'checked' : '';
         echo "<input type='checkbox' name='lae_compliance_options[{$args['id']}]' value='1' {$checked}>";
     }
 
     public function render_color_field( $args ) {
         $options = get_option( 'lae_compliance_options' );
-        $value   = isset( $options[ $args['id'] ] ) ? esc_attr( $options[ $args['id'] ] ) : '#000000';
+        $default = isset( $args['default'] ) ? $args['default'] : '#000000';
+        $value   = isset( $options[ $args['id'] ] ) ? esc_attr( $options[ $args['id'] ] ) : $default;
         echo "<input type='color' name='lae_compliance_options[{$args['id']}]' value='{$value}'>";
+    }
+
+    public function render_select_field( $args ) {
+        $options = get_option( 'lae_compliance_options' );
+        $current = isset( $options[ $args['id'] ] ) ? $options[ $args['id'] ] : '';
+        echo "<select name='lae_compliance_options[{$args['id']}]'>";
+        foreach ( $args['options'] as $value => $label ) {
+            echo "<option value='{$value}' " . selected( $current, $value, false ) . ">{$label}</option>";
+        }
+        echo "</select>";
     }
 
     public function render_settings_page() {
@@ -102,5 +121,4 @@ class LAE_Compliance_Settings {
     }
 }
 
-// Instantiate the class so it works
 new LAE_Compliance_Settings();

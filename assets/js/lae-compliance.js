@@ -1,55 +1,44 @@
-/**
- * Age Gate Logic for Lotto LAE Compliance
- */
-document.addEventListener('DOMContentLoaded', function() {
-    
-    const modal = document.getElementById('lae-age-gate-modal');
-    const btnYes = document.getElementById('lae-btn-age-yes');
-    const btnNo = document.getElementById('lae-btn-age-no');
-    const cookieName = 'lae_age_verified';
+document.addEventListener("DOMContentLoaded", function() {
+    var overlay = document.getElementById('lae-age-gate-overlay');
+    var btnYes = document.getElementById('lae-btn-yes');
+    var btnNo = document.getElementById('lae-btn-no');
 
+    if (!overlay) return;
+
+    // Función para leer cookies
     function getCookie(name) {
-        let nameEQ = name + "=";
-        let ca = document.cookie.split(';');
-        for(let i=0; i < ca.length; i++) {
-            let c = ca[i];
-            while (c.charAt(0)==' ') c = c.substring(1,c.length);
-            if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
-        }
+        var match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+        if (match) return match[2];
         return null;
     }
 
-    function setCookie(name, value, days) {
-        let expires = "";
-        if (days) {
-            let date = new Date();
-            date.setTime(date.getTime() + (days*24*60*60*1000));
-            expires = "; expires=" + date.toUTCString();
-        }
-        document.cookie = name + "=" + (value || "")  + expires + "; path=/";
-    }
-
-    if (!getCookie(cookieName)) {
-        if (modal) {
-            modal.style.display = 'flex';
-            document.body.classList.add('lae-no-scroll'); 
+    // Comprobamos si ya ha aceptado (no mostramos si ya hay cookie)
+    if (!getCookie('lae_age_verified')) {
+        overlay.style.display = 'flex';
+        document.body.classList.add('lae-no-scroll');
+        
+        // Evitamos que el botón SÍ se marque por defecto
+        if (document.activeElement instanceof HTMLElement) {
+            document.activeElement.blur();
         }
     }
 
+    // Acción para SÍ
     if (btnYes) {
         btnYes.addEventListener('click', function() {
-            setCookie(cookieName, 'true', 30); 
-            if (modal) {
-                modal.style.display = 'none';
-            }
-            document.body.classList.remove('lae-no-scroll'); 
+            var d = new Date();
+            d.setTime(d.getTime() + (30 * 24 * 60 * 60 * 1000)); // 30 días
+            document.cookie = "lae_age_verified=1; expires=" + d.toUTCString() + "; path=/; SameSite=Lax";
+            
+            overlay.style.display = 'none';
+            document.body.classList.remove('lae-no-scroll');
         });
     }
 
+    // Acción para NO
     if (btnNo) {
         btnNo.addEventListener('click', function() {
-            window.location.href = "https://www.jugarbien.es/";
+            window.location.href = "https://www.google.com";
         });
     }
-
 });

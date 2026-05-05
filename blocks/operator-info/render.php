@@ -1,16 +1,27 @@
 <?php
 /**
- * Operator Data block render
+ * Render for Operator/Seller Info Block
  */
-$operator_data = LAE_Compliance_Integration::get_operator_data();
+x
+$options = get_option( 'lae_compliance_options', array() );
 
-$admin_name = esc_html( $operator_data['admin_name'] );
-$nif        = esc_html( $operator_data['admin_nif'] );
+$admin_name  = !empty($options['admin_name']) ? $options['admin_name'] : 'No especificado';
+$holder_nif  = !empty($options['holder_nif']) ? $options['holder_nif'] : 'No especificado';
 ?>
 
-<div class="lae-block-operator-info" style="border: 1px solid #ccc; padding: 20px; border-radius: 8px; background: #f9f9f9;">
-    <h3 style="margin-top: 0;">Identificación del Operador</h3>
-    <p><strong>Titular/Administración:</strong> <?php echo $admin_name; ?></p>
-    <p><strong>NIF/CIF:</strong> <?php echo $nif; ?></p>
-    <p style="font-size: 0.85em; color: #666;">Punto de venta oficial de Loterías y Apuestas del Estado.</p>
+<div class="lae-shortcode-wrapper lae-operator-info-card">
+    <h4 class="lae-operator-title">IDENTIFICACIÓN DEL VENDEDOR</h4>
+    
+    <div style="margin-bottom: 15px;">
+        <p style="margin: 0 0 8px 0; color: #333;">
+            <strong>Titular/Administración:</strong> <?php echo esc_html( $admin_name ); ?>
+        </p>
+        <p style="margin: 0; color: #333;">
+            <strong>NIF/CIF:</strong> <?php echo esc_html( $holder_nif ); ?>
+        </p>
+    </div>
+
+    <p style="margin: 0; font-size: 0.85em; color: #666; border-top: 1px solid #eee; padding-top: 10px;">
+        Punto de venta oficial de Loterías y Apuestas del Estado.
+    </p>
 </div>
