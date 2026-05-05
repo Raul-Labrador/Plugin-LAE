@@ -31,12 +31,20 @@ class LAE_Compliance_Age_Gate {
             LAE_COMPLIANCE_VERSION,
             true // true = Load in the footer to avoid slowing down the website
         );
-
-        $color = ! empty( $options['age_gate_color'] ) ? esc_attr( $options['age_gate_color'] ) : '#000000';
         
+        // Ensure the main plugin stylesheet is loaded before adding inline CSS.
+        wp_enqueue_style(
+            'lae-compliance-style',
+            LAE_COMPLIANCE_URL . 'assets/css/lae-compliance.css',
+            array(),
+            LAE_COMPLIANCE_VERSION
+        );
+
+        $popup_bg = ! empty( $options['age_gate_bg_color'] ) ? esc_attr( $options['age_gate_bg_color'] ) : '#ffffff';
+
         $custom_css = "
             :root {
-                --lae-primary-color: {$color};
+                --lae-age-gate-bg: {$popup_bg};
             }
         ";
 

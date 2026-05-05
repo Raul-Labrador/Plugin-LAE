@@ -1,8 +1,53 @@
+:root {
+    --lae-footer-bg: #111111;
+    --lae-footer-text: #ffffff;
+    --lae-footer-hover: #1e73be;
+    --lae-footer-border: rgba(255, 255, 255, 0.15);
+
+    --lae-badge-bg: #f0f0f0;
+    --lae-badge-text: #333333;
+    --lae-badge-hover-bg: #d4af37;
+    --lae-badge-hover-text: #111111;
+
+    --lae-age-gate-overlay: rgba(0, 0, 0, 0.85);
+    --lae-age-gate-bg: #ffffff;
+    --lae-age-gate-text: #333333;
+    --lae-age-gate-heading: #111111;
+    --lae-age-gate-muted: #555555;
+    --lae-age-gate-border: #eeeeee;
+    --lae-age-gate-cookie-text: #999999;
+
+    --lae-primary-color: #000000;
+    --lae-primary-text: #ffffff;
+    --lae-secondary-bg: #e0e0e0;
+    --lae-secondary-text: #333333;
+
+    --lae-card-bg: #ffffff;
+    --lae-card-text: #333333;
+    --lae-card-border: #d1d5db;
+    --lae-card-border-soft: #eef0f2;
+    --lae-card-border-bottom: #e5e7eb;
+    --lae-card-shadow: rgba(0, 0, 0, 0.05);
+    --lae-card-shadow-hover: rgba(0, 0, 0, 0.1);
+
+    --lae-warning-bg: #ffffff;
+    --lae-warning-border: #eeeeee;
+    --lae-warning-accent: #d32f2f;
+    --lae-warning-title: #b71c1c;
+    --lae-warning-text: #444444;
+
+    --lae-probability-bg: #fdfae6;
+    --lae-probability-text: #444444;
+
+    --lae-banner-bg: #111111;
+    --lae-banner-text: #ffffff;
+}
+
 /* FOOTER WIDGET */
 .lae-compliance-footer-bar {
     position: fixed;
     left: 0;
-    bottom: 0px;
+    bottom: 0;
     z-index: 999999;
     display: flex;
     flex-wrap: wrap;
@@ -12,9 +57,9 @@
     padding: 15px 20px;
     width: 100%;
     box-sizing: border-box;
-    background-color: #111;
-    color: #fff;
-    border-top: 1px solid rgba(255,255,255,0.15);
+    background-color: var(--lae-footer-bg);
+    color: var(--lae-footer-text);
+    border-top: 1px solid var(--lae-footer-border);
 }
 
 .lae-compliance-logos {
@@ -26,7 +71,7 @@
 /* Square the +18 logo */
 .lae-logo-18 strong {
     font-size: 1.1rem;
-    border: 2px solid currentColor; 
+    border: 2px solid currentColor;
     border-radius: 4px;
     padding: 4px 6px;
     display: inline-block;
@@ -34,8 +79,8 @@
 }
 
 a.lae-badge {
-    background-color: #f0f0f0;
-    color: #333;
+    background-color: var(--lae-badge-bg);
+    color: var(--lae-badge-text);
     padding: 6px 10px;
     border-radius: 4px;
     font-size: 0.85rem;
@@ -45,8 +90,8 @@ a.lae-badge {
 }
 
 a.lae-badge:hover {
-    background-color: #d4af37;
-    color: #111;
+    background-color: var(--lae-badge-hover-bg);
+    color: var(--lae-badge-hover-text);
 }
 
 .lae-compliance-links {
@@ -65,7 +110,7 @@ a.lae-badge:hover {
 .lae-footer-link,
 .lae-btn-rgiaj,
 .lae-btn-024 {
-    color: var(--lae-footer-text, #ffffff) !important;
+    color: var(--lae-footer-text) !important;
     text-decoration: none !important;
     font-size: 0.85em;
     opacity: 0.85;
@@ -81,11 +126,10 @@ a.lae-badge:hover {
 .lae-footer-link:hover,
 .lae-btn-rgiaj:hover,
 .lae-btn-024:hover {
-    color: var(--lae-footer-hover, #1e73be) !important;
+    color: var(--lae-footer-hover) !important;
     text-decoration: underline !important;
     opacity: 1;
 }
-
 
 /* AGE GATE */
 .lae-age-gate-overlay {
@@ -94,36 +138,36 @@ a.lae-badge:hover {
     left: 0;
     width: 100vw;
     height: 100vh;
-    background-color: rgba(0, 0, 0, 0.85);
+    background-color: var(--lae-age-gate-overlay);
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 999999; 
+    z-index: 999999;
     backdrop-filter: blur(5px);
 }
 
 .lae-age-gate-content {
-    background-color: #fff;
+    background-color: var(--lae-age-gate-bg);
     padding: 40px;
     border-radius: 8px;
     text-align: center;
     max-width: 500px;
     width: 90%;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-    color: #333; 
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    color: var(--lae-age-gate-text);
 }
 
 /* Top welcome message */
 .lae-age-welcome {
     font-size: 1.1rem;
-    color: #555;
+    color: var(--lae-age-gate-muted);
     margin-bottom: 10px;
     text-transform: uppercase;
     letter-spacing: 1px;
 }
 
 .lae-age-welcome strong {
-    color: #111;
+    color: var(--lae-age-gate-heading);
 }
 
 /* Main title */
@@ -131,13 +175,13 @@ a.lae-badge:hover {
     font-size: 2.2rem;
     font-weight: 800;
     margin: 5px 0 15px;
-    color: #111;
+    color: var(--lae-age-gate-heading);
 }
 
 /* Legal text */
 .lae-age-text p {
     font-size: 1rem;
-    color: #444;
+    color: var(--lae-age-gate-text);
     margin-bottom: 25px;
 }
 
@@ -162,13 +206,13 @@ a.lae-badge:hover {
 }
 
 .lae-btn-yes {
-    background-color: var(--lae-primary-color, #000000);
-    color: #ffffff;
+    background-color: var(--lae-primary-color);
+    color: var(--lae-primary-text);
 }
 
 .lae-btn-no {
-    background-color: #e0e0e0;
-    color: #333;
+    background-color: var(--lae-secondary-bg);
+    color: var(--lae-secondary-text);
 }
 
 .lae-btn-yes:hover,
@@ -179,10 +223,10 @@ a.lae-badge:hover {
 /* Cookie warning at the bottom */
 .lae-cookie-warning {
     font-size: 0.7rem !important;
-    color: #999 !important;
+    color: var(--lae-age-gate-cookie-text) !important;
     margin-top: 20px;
     line-height: 1.3;
-    border-top: 1px solid #eee;
+    border-top: 1px solid var(--lae-age-gate-border);
     padding-top: 15px;
 }
 
@@ -191,25 +235,22 @@ body.lae-no-scroll {
     overflow: hidden;
 }
 
-
 /* RESPONSIVE GLOBALS */
-   
 @media (max-width: 768px) {
     .lae-compliance-footer-bar {
         flex-direction: column;
         text-align: center;
     }
-    
+
     .lae-compliance-links {
         justify-content: center;
     }
-    
+
     .lae-age-gate-buttons {
         flex-direction: column;
         gap: 10px;
     }
 }
-
 
 /* LEGAL PAGES & SHORTCODES / BLOCKS */
 
@@ -234,16 +275,16 @@ body.lae-no-scroll {
 
 /* Operator Info Card */
 .lae-operator-info-card {
-    background: #ffffff !important;
-    border: 1px solid #eef0f2 !important;
+    background: var(--lae-card-bg) !important;
+    border: 1px solid var(--lae-card-border-soft) !important;
     border-radius: 8px !important;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05) !important;
+    box-shadow: 0 4px 10px var(--lae-card-shadow) !important;
     padding: 20px;
     margin: 20px 0;
 }
 
 .lae-operator-title {
-    color: #111;
+    color: var(--lae-age-gate-heading);
     margin-top: 0;
     margin-bottom: 15px;
     font-weight: bold;
@@ -257,28 +298,28 @@ body.lae-no-scroll {
 
 .lae-operator-info-card li {
     margin-bottom: 8px;
-    color: #333;
+    color: var(--lae-card-text);
 }
 
 /* Enhanced Clickable Cards */
-.lae-sc-card-link, 
+.lae-sc-card-link,
 .lae-sc-phone-link {
-    background: #ffffff !important; 
-    border: 1px solid #d1d5db !important;
-    border-bottom: 3px solid #e5e7eb !important; 
+    background: var(--lae-card-bg) !important;
+    border: 1px solid var(--lae-card-border) !important;
+    border-bottom: 3px solid var(--lae-card-border-bottom) !important;
     border-radius: 8px !important;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05) !important; 
+    box-shadow: 0 4px 6px var(--lae-card-shadow) !important;
     transition: all 0.2s ease !important;
-    color: #333 !important;
+    color: var(--lae-card-text) !important;
     text-decoration: none !important;
 }
 
 /* Hover effect: the button "sinks" and bottom border gets colored */
-.lae-sc-card-link:hover, 
+.lae-sc-card-link:hover,
 .lae-sc-phone-link:hover {
     transform: translateY(-2px) !important;
-    border-bottom-color: var(--lae-footer-hover, #d4af37) !important; 
-    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1) !important;
+    border-bottom-color: var(--lae-footer-hover) !important;
+    box-shadow: 0 10px 15px var(--lae-card-shadow-hover) !important;
 }
 
 /* Grid layout for Exclusion Links */
@@ -309,31 +350,31 @@ body.lae-no-scroll {
 
 /* Probability block */
 .lae-legal-page-links-probabilidad {
-    background-color: #fdfae6 !important;
-    border: 1px solid #eef0f2 !important;
+    background-color: var(--lae-probability-bg) !important;
+    border: 1px solid var(--lae-card-border-soft) !important;
     border-radius: 8px !important;
-    color: #444 !important;
+    color: var(--lae-probability-text) !important;
     font-size: 0.85em;
     padding: 15px !important;
 }
 
 /* Redesigned Age Warning Block */
 .lae-sc-age-warning {
-    background-color: #ffffff !important;
-    border: 1px solid #eee !important;
-    border-left: 6px solid #d32f2f !important;
-    color: #333 !important;
+    background-color: var(--lae-warning-bg) !important;
+    border: 1px solid var(--lae-warning-border) !important;
+    border-left: 6px solid var(--lae-warning-accent) !important;
+    color: var(--lae-card-text) !important;
     padding: 20px !important;
     border-radius: 8px !important;
     display: flex;
     align-items: center;
     gap: 20px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05) !important; 
+    box-shadow: 0 4px 10px var(--lae-card-shadow) !important;
 }
 
 .lae-sc-age-warning h4 {
     margin: 0 0 8px 0;
-    color: #b71c1c !important;
+    color: var(--lae-warning-title) !important;
     font-size: 1.3rem;
     font-weight: bold;
 }
@@ -341,14 +382,14 @@ body.lae-no-scroll {
 .lae-sc-age-warning p {
     margin: 0;
     font-size: 0.95rem;
-    color: #444 !important;
+    color: var(--lae-warning-text) !important;
     line-height: 1.5;
 }
 
 /* Responsible Gaming Banner */
 .lae-sc-responsible-gaming {
-    background-color: #111 !important;
-    color: #fff !important;
+    background-color: var(--lae-banner-bg) !important;
+    color: var(--lae-banner-text) !important;
     text-align: center;
     margin-bottom: 20px;
     display: flex;
@@ -363,13 +404,13 @@ body.lae-no-scroll {
     font-weight: bold;
     display: flex;
     align-items: center;
-    color: #fff !important;
+    color: var(--lae-banner-text) !important;
 }
 
 /* Force the +18 logo inside the black banner to be white and square */
 .lae-sc-responsible-gaming .lae-logo-18 strong {
-    color: #fff !important;
-    border-color: #fff !important;
+    color: var(--lae-banner-text) !important;
+    border-color: var(--lae-banner-text) !important;
     margin-right: 15px;
 }
 
