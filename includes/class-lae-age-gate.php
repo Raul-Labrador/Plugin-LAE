@@ -49,9 +49,23 @@ class LAE_Compliance_Age_Gate {
      * Print the modal's HTML by calling its template.
      */
     public function render_modal() {
-        if ( is_admin() ) {
-            return;
-        }
+        // COMPATIBILITY SHIELDS for Woocommerce compatibility (Phase 3)
+        
+        // Avoid administration panel
+        if ( is_admin() ) { return; }
+        
+        // Avoid breaking AJAX requests from WooCommerce and Lotto plugins
+        if ( wp_doing_ajax() ) { return; }
+        
+        // Avoid breaking the REST API
+        if ( defined( 'REST_REQUEST' ) && REST_REQUEST ) { return; }
+        
+        // Avoid blocking scheduled tasks (CRON)
+        if ( wp_doing_cron() ) { return; }
+        
+        // Avoid injecting into pure WooCommerce endpoints or the checkout page
+        if ( function_exists( 'is_wc_endpoint_url' ) && is_wc_endpoint_url() ) { return; }
+        if ( function_exists( 'is_checkout' ) && is_checkout() ) { return; }
 
         $options = get_option( 'lae_compliance_options', array() );
         

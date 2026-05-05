@@ -20,9 +20,14 @@ class LAE_Compliance_Hooks {
     }
 
     public function render_footer_bar() {
-        if ( is_admin() ) {
-            return;
-        }
+        // COMPATIBILITY SHIELDS for Woocommerce compatibility (Phase 3)
+        
+        if ( is_admin() ) { return; }
+        if ( wp_doing_ajax() ) { return; }
+        if ( defined( 'REST_REQUEST' ) && REST_REQUEST ) { return; }
+        if ( wp_doing_cron() ) { return; }
+        if ( function_exists( 'is_wc_endpoint_url' ) && is_wc_endpoint_url() ) { return; }
+        if ( function_exists( 'is_checkout' ) && is_checkout() ) { return; } // Oculta el footer en el pago
 
         echo do_shortcode( '[lae_responsible_footer]' );
     }
