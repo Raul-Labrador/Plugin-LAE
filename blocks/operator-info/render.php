@@ -2,7 +2,7 @@
 /**
  * Render for Operator/Seller Info Block
  */
-x
+
 $options = get_option( 'lae_compliance_options', array() );
 
 $admin_name  = !empty($options['admin_name']) ? $options['admin_name'] : 'No especificado';

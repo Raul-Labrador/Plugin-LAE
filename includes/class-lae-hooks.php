@@ -20,10 +20,27 @@ class LAE_Compliance_Hooks {
 
         $options = get_option( 'lae_compliance_options', array() );
 
-        $footer_bg     = ! empty( $options['footer_bg_color'] ) ? esc_attr( $options['footer_bg_color'] ) : '#111111';
-        $footer_text   = ! empty( $options['footer_text_color'] ) ? esc_attr( $options['footer_text_color'] ) : '#ffffff';
-        $footer_hover  = ! empty( $options['footer_hover_color'] ) ? esc_attr( $options['footer_hover_color'] ) : '#1e73be';
-        $footer_pos    = ! empty( $options['footer_position'] ) ? esc_attr( $options['footer_position'] ) : 'fixed';
+        // We retrieve the values ​​from the settings panel (or use the default ones)
+        $footer_bg_option    = ! empty( $options['footer_bg_color'] ) ? esc_attr( $options['footer_bg_color'] ) : '#111111';
+        $footer_text_option  = ! empty( $options['footer_text_color'] ) ? esc_attr( $options['footer_text_color'] ) : '#ffffff';
+        $footer_hover_option = ! empty( $options['footer_hover_color'] ) ? esc_attr( $options['footer_hover_color'] ) : '#1e73be';
+        $footer_pos          = ! empty( $options['footer_position'] ) ? esc_attr( $options['footer_position'] ) : 'fixed';
+
+        // We pass those values ​​through filters. 
+        // If the child theme doesn't say anything, the panel's settings are used. If the child theme does intervene, the child theme takes precedence.
+        $footer_bg    = apply_filters( 'lae_footer_bg_color', $footer_bg_option );
+        $footer_text  = apply_filters( 'lae_footer_text_color', $footer_text_option );
+        $footer_hover = apply_filters( 'lae_footer_hover_color', $footer_hover_option );
+
+        /*
+        On the child theme its necesary to write
+
+        add_filter( 'lae_footer_bg_color', function() { return '#color'; } );
+        add_filter( 'lae_footer_hover_color', function() { return '#color'; } );
+
+        on functions.php this will put the color of child theme on the footer bar.
+
+        */
 
         $custom_css = "
             :root {
