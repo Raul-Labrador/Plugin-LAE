@@ -42,6 +42,17 @@ class LAE_Compliance_Age_Gate {
 
         $popup_bg = ! empty( $options['age_gate_bg_color'] ) ? esc_attr( $options['age_gate_bg_color'] ) : '#ffffff';
 
+        // Filter so that the child theme can overwrite the background color
+        $popup_bg = apply_filters( 'lae_age_gate_bg_color', $popup_bg );
+
+        /*
+        On the child theme its necesary to write
+        
+        add_filter( 'lae_age_gate_bg_color', function() { return '#color'; } );
+        
+        on functions.php this will put the color of child theme on the age-gate
+        */
+
         $custom_css = "
             :root {
                 --lae-age-gate-bg: {$popup_bg};

@@ -147,7 +147,7 @@ a.lae-badge:hover {
 }
 
 .lae-age-gate-content {
-    background-color: var(--lae-age-gate-bg);
+    background-color: var(--lae-age-gate-bg, #ffffff);
     padding: 40px;
     border-radius: 8px;
     text-align: center;
