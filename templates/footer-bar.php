@@ -38,9 +38,9 @@ $position    = ! empty( $options['footer_position'] ) ? $options['footer_positio
     <div class="lae-compliance-links">
         <a href="<?php echo esc_url( site_url('/juego-responsable/') ); ?>" class="lae-footer-link">Política de Juego</a> 
         <span class="lae-separator">|</span>
-        <a href="<?php echo esc_url( site_url('/politica-de-devoluciones/') ); ?>" class="lae-footer-link">Política de Devoluciones</a>
+        <a href="<?php echo esc_url( site_url('/politica-devoluciones-loteria/') ); ?>" class="lae-footer-link">Política de Devoluciones</a>
         <span class="lae-separator">|</span>
-        <a href="https://www.ordenacionjuego.es/participantes-juego/juego-seguro/rgiaj" target="_blank" rel="noopener noreferrer" class="lae-footer-link lae-fw-bold">RGIAJ</a>
+        <a href="<?php echo esc_url( home_url('/autoexclusion/') ); ?>" class="lae-footer-link lae-fw-bold">RGIAJ</a>
         <span class="lae-separator">|</span>
         <a href="tel:024" class="lae-footer-link lae-fw-bold">☎ 024</a>
     </div>
