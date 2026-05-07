@@ -20,7 +20,7 @@ $admin_name = ! empty( $options['admin_name'] ) ? $options['admin_name'] : 'nues
             Bienvenido a <strong><?php echo esc_html( $admin_name ); ?></strong>
         </div>
 
-        <h2 id="lae-age-title" class="lae-age-title">¿Eres mayor de 18 años?</h2>
+        <p id="lae-age-title" class="h2 lae-age-title">¿Eres mayor de 18 años?</p>
 
         <div class="lae-age-text">
             <p>El acceso y uso de este sitio web está estrictamente prohibido a menores de 18 años.</p>

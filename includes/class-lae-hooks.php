@@ -21,55 +21,11 @@ class LAE_Compliance_Hooks {
 
         $options = get_option( 'lae_compliance_options', array() );
 
-        // Footer options
-        $footer_bg_option    = ! empty( $options['footer_bg_color'] ) ? esc_attr( $options['footer_bg_color'] ) : '#000000';
-        $footer_text_option  = ! empty( $options['footer_text_color'] ) ? esc_attr( $options['footer_text_color'] ) : '#ffffff';
-        $footer_hover_option = ! empty( $options['footer_hover_color'] ) ? esc_attr( $options['footer_hover_color'] ) : '#1e73be';
-        $footer_pos          = ! empty( $options['footer_position'] ) ? esc_attr( $options['footer_position'] ) : 'fixed';
-
-        // Age Gate options
-        $age_title_color_option       = ! empty( $options['age_gate_title_color'] ) ? esc_attr( $options['age_gate_title_color'] ) : '#1e73be';
-        $age_button_bg_color_option   = ! empty( $options['age_gate_button_bg_color'] ) ? esc_attr( $options['age_gate_button_bg_color'] ) : '#000000';
-        $age_button_text_color_option = ! empty( $options['age_gate_button_text_color'] ) ? esc_attr( $options['age_gate_button_text_color'] ) : '#ffffff';
-
-        // Footer filters
-        $footer_bg    = apply_filters( 'lae_footer_bg_color', $footer_bg_option );
-        $footer_text  = apply_filters( 'lae_footer_text_color', $footer_text_option );
-        $footer_hover = apply_filters( 'lae_footer_hover_color', $footer_hover_option );
-
-        // Age Gate filters
-        $age_title_color       = apply_filters( 'lae_age_gate_title_color', $age_title_color_option );
-        $age_button_bg_color   = apply_filters( 'lae_age_gate_button_bg_color', $age_button_bg_color_option );
-        $age_button_text_color = apply_filters( 'lae_age_gate_button_text_color', $age_button_text_color_option );
+        $footer_pos = ! empty( $options['footer_position'] ) ? esc_attr( $options['footer_position'] ) : 'fixed';
 
         $custom_css = "
-            :root {
-                --lae-footer-bg: {$footer_bg};
-                --lae-footer-text: {$footer_text};
-                --lae-footer-hover: {$footer_hover};
-                --lae-age-title-color: {$age_title_color};
-                --lae-age-button-bg: {$age_button_bg_color};
-                --lae-age-button-text: {$age_button_text_color};
-            }
-
             .lae-compliance-footer-bar {
                 position: " . ( $footer_pos === 'static' ? 'static' : 'fixed' ) . ";
-            }
-
-            .lae-age-title {
-                color: var(--lae-age-title-color);
-            }
-
-            .lae-btn-yes {
-                background-color: var(--lae-age-button-bg);
-                color: var(--lae-age-button-text);
-            }
-
-            .lae-btn-yes:hover,
-            .lae-btn-yes:focus {
-                background-color: var(--lae-age-button-bg);
-                color: var(--lae-age-button-text);
-                opacity: 0.92;
             }
         ";
 
@@ -77,6 +33,7 @@ class LAE_Compliance_Hooks {
     }
 
     public function render_footer_bar() {
+        // Escudos de compatibilidad
         if ( is_admin() ) { return; }
         if ( wp_doing_ajax() ) { return; }
         if ( defined( 'REST_REQUEST' ) && REST_REQUEST ) { return; }

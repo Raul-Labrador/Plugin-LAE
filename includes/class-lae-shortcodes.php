@@ -18,28 +18,34 @@ class LAE_Compliance_Shortcodes {
         add_shortcode( 'lae_age_warning', array( $this, 'render_age_warning' ) );
         add_shortcode( 'lae_phone_helpline', array( $this, 'render_phone_helpline' ) );
         add_shortcode( 'lae_exclusion_links', array( $this, 'render_exclusion_links' ) );
+        add_shortcode( 'lae_probability_disclaimer', array( $this, 'render_probability_disclaimer' ) );
     }
 
 
     public function render_operator_info() {
-        $options = LAE_Compliance_Integration::get_operator_data();
+        $options = get_option( 'lae_compliance_options', array() );
 
-        $admin_name   = $options['admin_name'] ?? '';
-        $admin_number = $options['admin_number'] ?? '';
-        $holder_name  = $options['holder_name'] ?? '';
-        $holder_nif   = $options['holder_nif'] ?? '';
-        $address      = $options['address'] ?? '';
-
+        $admin_name  = !empty($options['admin_name']) ? $options['admin_name'] : 'No especificado';
+        $holder_nif  = !empty($options['holder_nif']) ? $options['holder_nif'] : 'No especificado';
+        
         ob_start();
         ?>
-        <div class="lae-operator-info-card">
-            <ul>
-                <li><strong>Administración:</strong> <?php echo esc_html( $admin_name ); ?></li>
-                <li><strong>Número LAE:</strong> <?php echo esc_html( $admin_number ); ?></li>
-                <li><strong>Titular:</strong> <?php echo esc_html( $holder_name ); ?></li>
-                <li><strong>NIF:</strong> <?php echo esc_html( $holder_nif ); ?></li>
-                <li><strong>Dirección:</strong> <?php echo esc_html( $address ); ?></li>
-            </ul>
+
+        <div class="lae-shortcode-wrapper lae-operator-info-card">
+            <h4 class="lae-operator-title">IDENTIFICACIÓN DEL VENDEDOR</h4>
+            
+            <div style="margin-bottom: 15px;">
+                <p style="margin: 0 0 8px 0; color: #333;">
+                    <strong>Titular/Administración:</strong> <?php echo esc_html( $admin_name ); ?>
+                </p>
+                <p style="margin: 0; color: #333;">
+                    <strong>NIF/CIF:</strong> <?php echo esc_html( $holder_nif ); ?>
+                </p>
+            </div>
+
+            <p style="margin: 0; font-size: 0.85em; color: #666; border-top: 1px solid #eee; padding-top: 10px;">
+                Punto de venta oficial de Loterías y Apuestas del Estado.
+            </p>
         </div>
         <?php
         return ob_get_clean();
@@ -128,7 +134,7 @@ class LAE_Compliance_Shortcodes {
         <div class="lae-legal-page lae-autoexclusion-page">
             <h2>Autoexclusión (RGIAJ)</h2>
 
-            <p>Si deseas limitar tu acceso a actividades de juego, puedes solicitar la inscripción en el <strong>Registro General de Interdicciones de Acceso al Juego (RGIAJ)</strong>, gestionado por la Dirección General de Ordenación del Juego.</p>
+        ob_start();    <p>Si deseas limitar tu acceso a actividades de juego, puedes solicitar la inscripción en el <strong>Registro General de Interdicciones de Acceso al Juego (RGIAJ)</strong>, gestionado por la Dirección General de Ordenación del Juego.</p>
 
             <p>La inscripción en el RGIAJ impide participar en aquellos juegos en los que la legislación exige la identificación previa del participante y constituye una medida oficial de protección para personas que desean restringir su acceso al juego.</p>
 
@@ -196,9 +202,9 @@ class LAE_Compliance_Shortcodes {
 
         ob_start();
         ?>
-        <div class="lae-shortcode-wrapper lae-sc-responsible-gaming <?php echo esc_attr( $size_class ); ?>">
+        <div class="lae-shortcode-wrapper lae-sc-responsible-gaming">
             <p>
-                <span class="lae-logo-18-inline"><strong>+18</strong></span>
+                <span class="lae-logo-18"><strong>+18</strong></span>
                 Si juegas, juega con responsabilidad. El juego puede crear adicción.
             </p>
         </div>
@@ -210,9 +216,6 @@ class LAE_Compliance_Shortcodes {
         ob_start();
         ?>
         <div class="lae-shortcode-wrapper lae-sc-age-warning">
-            <div class="lae-sc-icon">
-                <span class="lae-logo-18"><strong>+18</strong></span>
-            </div>
             <div class="lae-sc-content">
                 <h4>Prohibida la venta a menores</h4>
                 <p>El acceso y la participación en los juegos comercializados por Loterías y Apuestas del Estado está estrictamente prohibido a los menores de 18 años.</p>
@@ -239,15 +242,43 @@ class LAE_Compliance_Shortcodes {
     public function render_exclusion_links() {
         ob_start();
         ?>
-        <div class="lae-shortcode-wrapper lae-sc-exclusion-links">
-            <a href="https://www.ordenacionjuego.es/participantes-juego/juego-seguro/rgiaj" class="lae-sc-card-link" target="_blank" rel="noopener noreferrer">
-                <strong>RGIAJ / Autoprohibición</strong>
-                <span>Información oficial y acceso al registro</span>
-            </a>
-            <a href="https://www.selae.es/es/web-corporativa/responsabilidad-social/gestion-responsable-del-juego/proteccion-a-menores" class="lae-sc-card-link" target="_blank" rel="noopener noreferrer">
-                <strong>Protección a menores</strong>
-                <span>Información oficial de SELAE</span>
-            </a>
+        <div class="lae-shortcode-wrapper lae-block-exclusion-links">
+            <p class="h3" style="text-align: center; margin-bottom: 20px; color: #111;">Recursos de Ayuda y Autoexclusión</p>
+            
+            <div class="lae-sc-exclusion-links">
+                
+                <a href="https://sede.ordenacionjuego.gob.es/es/registro-interdicciones" target="_blank" rel="noopener noreferrer" class="lae-sc-card-link">
+                    <strong style="display: block; font-size: 1.1em; margin-bottom: 5px;">Registro RGIAJ</strong>
+                    <span style="font-size: 0.85em; color: #666;">Solicitar autoexclusión estatal</span>
+                </a>
+
+                <a href="https://www.jugarbien.es" target="_blank" rel="noopener noreferrer" class="lae-sc-card-link">
+                    <strong style="display: block; font-size: 1.1em; margin-bottom: 5px;">Jugar Bien</strong>
+                    <span style="font-size: 0.85em; color: #666;">Información y prevención</span>
+                </a>
+
+                <a href="tel:024" class="lae-sc-card-link">
+                    <strong style="display: block; font-size: 1.1em; margin-bottom: 5px;">☎ Teléfono 024</strong>
+                    <span style="font-size: 0.85em; color: #666;">Línea de atención gratuita</span>
+                </a>
+                
+            </div>
+        </div>
+        <?php
+        return ob_get_clean();
+    }
+
+    public function render_probability_disclaimer() {
+        // We retrieve the chosen draw or set the default value
+        $sorteo = isset( $attributes['sorteo'] ) && ! empty( $attributes['sorteo'] ) ? $attributes['sorteo'] : 'Lotería Nacional';
+
+        ob_start();
+        ?>
+
+        <div class="lae-block-probability" style="background-color: #fff9c4; border-left: 4px solid #fbc02d; padding: 15px; margin: 20px 0; font-size: 0.9em; color: #555; border-radius: 4px;">
+            <p style="margin: 0;">
+                <strong>Aviso sobre probabilidades:</strong> La participación en los juegos de lotería se basa en el azar. Las probabilidades de obtener premio en cada uno de los juegos comercializados por SELAE son públicas y pueden ser consultadas en los puntos de venta oficiales y en la web de Loterías y Apuestas del Estado.
+            </p>
         </div>
         <?php
         return ob_get_clean();
