@@ -1,0 +1,148 @@
+/* ==========================================================
+   4. LEGAL PAGES & SHORTCODES / BLOCKS
+   ========================================================== */
+.lae-shortcode-wrapper {
+    margin: 20px 0;
+    box-sizing: border-box;
+}
+
+.lae-operator-info-card {
+    background: var(--lae-card-bg) !important;
+    border: 1px solid var(--lae-card-border-soft) !important;
+    border-radius: 8px !important;
+    box-shadow: 0 4px 10px var(--lae-card-shadow) !important;
+    padding: 20px;
+    margin: 20px 0;
+}
+
+.lae-operator-title {
+    color: var(--lae-age-gate-heading);
+    margin-top: 0;
+    margin-bottom: 15px;
+    font-weight: bold;
+}
+
+.lae-operator-info-card ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.lae-operator-info-card li {
+    margin-bottom: 8px;
+    color: var(--lae-card-text);
+}
+
+.lae-sc-card-link,
+.lae-sc-phone-link {
+    background: var(--lae-card-bg) !important;
+    border: 1px solid var(--lae-card-border) !important;
+    border-bottom: 3px solid var(--lae-card-border-bottom) !important;
+    border-radius: 8px !important;
+    box-shadow: 0 4px 6px var(--lae-card-shadow) !important;
+    transition: all 0.2s ease !important;
+    color: var(--lae-card-text) !important;
+    text-decoration: none !important;
+}
+
+.lae-sc-card-link:hover,
+.lae-sc-phone-link:hover {
+    transform: translateY(-2px) !important;
+    border-bottom-color: var(--lae-footer-hover) !important;
+    box-shadow: 0 10px 15px var(--lae-card-shadow-hover) !important;
+}
+
+.lae-sc-exclusion-links {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+}
+
+.lae-sc-card-link {
+    padding: 20px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.lae-sc-phone {
+    display: inline-block;
+}
+
+.lae-sc-phone-link {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 24px;
+}
+
+.lae-legal-page-links-probabilidad {
+    background-color: var(--lae-probability-bg) !important;
+    border: 1px solid var(--lae-card-border-soft) !important;
+    border-radius: 8px !important;
+    color: var(--lae-probability-text) !important;
+    font-size: 0.85em;
+    padding: 15px !important;
+}
+
+.lae-sc-age-warning {
+    background-color: var(--lae-warning-bg) !important;
+    border: 1px solid var(--lae-warning-border) !important;
+    border-left: 6px solid var(--lae-warning-accent) !important;
+    color: var(--lae-card-text) !important;
+    padding: 20px !important;
+    border-radius: 8px !important;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    box-shadow: 0 4px 10px var(--lae-card-shadow) !important;
+}
+
+.lae-sc-age-warning h4 {
+    margin: 0 0 8px 0;
+    color: var(--lae-warning-title) !important;
+    font-size: 1.3rem;
+    font-weight: bold;
+}
+
+.lae-sc-age-warning p {
+    margin: 0;
+    font-size: 0.95rem;
+    color: var(--lae-warning-text) !important;
+    line-height: 1.5;
+}
+
+.lae-sc-responsible-gaming {
+    background-color: var(--lae-banner-bg) !important;
+    color: var(--lae-banner-text) !important;
+    text-align: center;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px !important;
+    border-radius: 8px !important;
+}
+
+.lae-sc-responsible-gaming p {
+    margin: 0;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    color: var(--lae-banner-text) !important;
+}
+
+.lae-sc-responsible-gaming .lae-logo-18 strong {
+    color: var(--lae-banner-text) !important;
+    border-color: var(--lae-banner-text) !important;
+    margin-right: 15px;
+}
+
+/* --- Responsive Blocks --- */
+@media (max-width: 600px) {
+    .lae-sc-age-warning {
+        flex-direction: column;
+        text-align: center;
+        padding: 30px !important;
+    }
+}

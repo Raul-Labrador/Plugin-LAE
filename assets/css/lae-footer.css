@@ -1,0 +1,98 @@
+.lae-compliance-footer-bar {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    z-index: 999999;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    padding: 15px 20px;
+    width: 100%;
+    box-sizing: border-box;
+    background-color: var(--lae-footer-bg);
+    color: var(--lae-footer-text);
+    border-top: 1px solid var(--lae-footer-border);
+}
+
+.lae-compliance-logos {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Square the +18 logo */
+.lae-logo-18 strong {
+    font-size: 1.1rem;
+    border: 2px solid currentColor;
+    border-radius: 4px;
+    padding: 4px 6px;
+    display: inline-block;
+    line-height: 1;
+}
+
+a.lae-badge {
+    background-color: var(--lae-badge-bg);
+    color: var(--lae-badge-text);
+    padding: 6px 10px;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    font-weight: bold;
+    text-decoration: none;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+a.lae-badge:hover {
+    background-color: var(--lae-badge-hover-bg);
+    color: var(--lae-badge-hover-text);
+}
+
+.lae-compliance-links {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.lae-separator {
+    opacity: 0.4;
+    font-size: 0.9em;
+    user-select: none;
+}
+
+.lae-footer-link,
+.lae-btn-rgiaj,
+.lae-btn-024 {
+    color: var(--lae-footer-text) !important;
+    text-decoration: none !important;
+    font-size: 0.85em;
+    opacity: 0.85;
+    transition: color 0.3s ease, opacity 0.3s ease;
+}
+
+.lae-fw-bold {
+    font-weight: bold;
+    font-size: 0.9em;
+    opacity: 1;
+}
+
+.lae-footer-link:hover,
+.lae-btn-rgiaj:hover,
+.lae-btn-024:hover {
+    color: var(--lae-footer-hover) !important;
+    text-decoration: underline !important;
+    opacity: 1;
+}
+
+/* --- Responsive Footer --- */
+@media (max-width: 768px) {
+    .lae-compliance-footer-bar {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .lae-compliance-links {
+        justify-content: center;
+    }
+}
