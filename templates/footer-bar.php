@@ -28,7 +28,7 @@ $position    = ! empty( $options['footer_position'] ) ? $options['footer_positio
         </span>
 
         <a href="https://www.juegoseguro.es" target="_blank" rel="noopener noreferrer" class="lae-badge">Juego Seguro</a>
-        <a href="https://www.ordenacionjuego.es/es/juego-responsable" target="_blank" rel="noopener noreferrer" class="lae-badge">Juego Responsable</a>
+        <a href="https://www.loteriasyapuestas.es/es" target="_blank" rel="noopener noreferrer" class="lae-badge">Juego Responsable</a>
     </div>
 
     <div class="lae-compliance-text">

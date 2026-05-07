@@ -31,7 +31,7 @@ $admin_name = ! empty( $options['admin_name'] ) ? $options['admin_name'] : 'nues
             <button id="lae-btn-no" class="lae-btn-no">NO, SALIR</button>
         </div>
 
-        <p class="lae-cookie-warning">Al confirmar, aceptas el uso de una cookie técnica estrictamente necesaria para guardar tu preferencia de acceso.</p>
+        <p class="lae-cookie-warning">Al confirmar, aceptas el uso de una cookie necesaria para guardar tu preferencia de acceso.</p>
 
     </div>
 

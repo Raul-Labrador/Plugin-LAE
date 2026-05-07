@@ -20,7 +20,6 @@ class LAE_Compliance_Shortcodes {
         add_shortcode( 'lae_exclusion_links', array( $this, 'render_exclusion_links' ) );
     }
 
-    /* M3 & M4 */
 
     public function render_operator_info() {
         $options = LAE_Compliance_Integration::get_operator_data();
@@ -140,7 +139,7 @@ class LAE_Compliance_Shortcodes {
             <p>Si necesitas comprobar tu situación en el registro o consultar información adicional sobre el procedimiento, puedes hacerlo a través de los canales oficiales de la Dirección General de Ordenación del Juego.</p>
 
             <p>Para ampliar información sobre el procedimiento, consultar tu situación o acceder a la solicitud, puedes utilizar los recursos oficiales de la Dirección General de Ordenación del Juego.</p>
-            
+
             <div class="lae-legal-page-links">
                 <a href="https://www.ordenacionjuego.es/participantes-juego/juego-seguro/rgiaj" class="lae-badge-link" target="_blank" rel="noopener noreferrer">Información oficial sobre RGIAJ</a>
                 <a href="https://www.ordenacionjuego.es/datos-estudios/actividad-historica/act-rgiaj" class="lae-badge-link" target="_blank" rel="noopener noreferrer">Solicitud e inscripción</a>
