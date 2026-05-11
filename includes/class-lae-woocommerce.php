@@ -25,6 +25,9 @@ class LAE_Compliance_WooCommerce {
         
         // WooCommerce Emails: Legal Footer
         add_action( 'woocommerce_email_footer', array( $this, 'email_legal_footer' ) );
+
+        // Inject ads into Lottoei's custom pages
+        add_filter( 'the_content', array( $this, 'inject_lottoei_notices' ) );
     }
 
     public function product_probability_notice() {
@@ -88,6 +91,44 @@ class LAE_Compliance_WooCommerce {
             </p>
         </div>
         <?php
+    }
+
+    public function inject_lottoei_notices( $content ) {
+        // We only act on the public part and the main content
+        if ( is_admin() || ! is_main_query() ) {
+            return $content;
+        }
+
+        // We define the Lottoei shortcodes that we want to "monitor"
+        $lottoei_shortcodes = array( 'lotto_numbers', 'lotto_company', 'lotto_terminal' ); // Add hero more if exists
+        $is_lottoei_page = false;
+
+        // Comprobamos si el contenido de la página actual tiene alguno de esos shortcodes
+        foreach ( $lottoei_shortcodes as $shortcode ) {
+            if ( has_shortcode( $content, $shortcode ) ) {
+                $is_lottoei_page = true;
+                break;
+            }
+        }
+
+        // If it's a Lottoei page, we inject our notice right BEFORE its content.
+        if ( $is_lottoei_page ) {
+            ob_start();
+            ?>
+            <div class="lae-wc-notice lae-product-notice" style="border: 1px solid #ffcc00; padding: 10px; margin-bottom: 20px; border-radius: 4px; background: #fffdf0;">
+                <p style="margin:0; font-size: 0.9em; color: #444;">
+                    <i class="fas fa-info-circle" style="color: #d4af37; margin-right: 5px;"></i> 
+                    <strong>Aviso legal:</strong> Los juegos de lotería son juegos de azar. Participar en ellos no garantiza la obtención de premio. Juega con responsabilidad.
+                </p>
+            </div>
+            <?php
+            $aviso_legal = ob_get_clean();
+
+            // We posted our notice BEFORE the original content
+            $content = $aviso_legal . $content;
+        }
+
+        return $content;
     }
 }
 
