@@ -141,21 +141,6 @@ class LAE_Compliance_Settings {
         );
 
         add_settings_field(
-            'footer_position',
-            'Posición',
-            array( $this, 'render_select_field' ),
-            'lae-compliance',
-            'lae_section_footer',
-            array(
-                'id' => 'footer_position',
-                'options' => array(
-                    'fixed'  => 'Fijo en la parte inferior (Sticky)',
-                    'static' => 'Estático al final del contenido',
-                ),
-            )
-        );
-
-        add_settings_field(
             'footer_bg_color',
             'Color de fondo',
             array( $this, 'render_color_field' ),
@@ -236,12 +221,7 @@ class LAE_Compliance_Settings {
         $output['address']      = isset( $output['address'] ) ? sanitize_text_field( $output['address'] ) : '';
 
         // Sanitizar selects
-        $allowed_positions = array( 'fixed', 'static' );
         $allowed_show_on   = array( 'all', 'shop', 'home' );
-
-        $output['footer_position'] = ( isset( $output['footer_position'] ) && in_array( $output['footer_position'], $allowed_positions, true ) )
-            ? $output['footer_position']
-            : 'fixed';
 
         $output['footer_show_on'] = ( isset( $output['footer_show_on'] ) && in_array( $output['footer_show_on'], $allowed_show_on, true ) )
             ? $output['footer_show_on']
@@ -269,7 +249,6 @@ class LAE_Compliance_Settings {
             $output['footer_bg_color']       = '#000000';
             $output['footer_text_color']     = '#ffffff';
             $output['footer_hover_color']    = '#1e73be';
-            $output['footer_position']       = 'fixed';
             $output['footer_show_on']        = 'all';
             $output['reset_footer_defaults'] = 0;
         }

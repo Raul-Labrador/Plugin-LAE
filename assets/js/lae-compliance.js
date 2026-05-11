@@ -99,27 +99,8 @@ document.addEventListener("DOMContentLoaded", function () {
         sessionStorage.removeItem("lae_age_denied");
         restoreOriginalAgeGate();
 
-        if (!isCookiesYesVisible()) {
-            showAgeGate();
-            return;
-        }
-
-        var tries = 0;
-        var maxTries = 100; // ~20 segundos
-        var interval = setInterval(function () {
-            tries++;
-
-            if (!isCookiesYesVisible()) {
-                clearInterval(interval);
-                showAgeGate();
-                return;
-            }
-
-            if (tries >= maxTries) {
-                clearInterval(interval);
-                showAgeGate();
-            }
-        }, 200);
+        // Mostramos el popup inmediatamente, sin esperar a ningún plugin de cookies
+        showAgeGate();
     }
 
     function bindButtons() {

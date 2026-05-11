@@ -3,7 +3,7 @@
  * Plugin Name: Lotto LAE Compliance
  * Description: Adaptación legal para administraciones de lotería (DGOJ, SELAE, Juego Responsable).
  * Version:     0.1.1
- * Author:      Comerline
+ * Author:      Raúl Labrador Pérez & Juan Manuel Mesa 
  * Text Domain: lotto-lae-compliance
  * Domain Path: /languages
  */
