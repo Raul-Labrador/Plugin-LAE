@@ -112,94 +112,66 @@ class LAE_Compliance_Shortcodes {
     /* M5 & M6 */
 
     public function render_responsible_gaming( $atts ) {
-        $atts = shortcode_atts( array(
-            'size' => 'banner', // options: banner, compact
-        ), $atts, 'lae_responsible_gaming' );
+        $atts = shortcode_atts(
+            array(
+                'size' => 'medium',
+            ),
+            $atts,
+            'lae_responsible_gaming'
+        );
 
-        $size_class = ( $atts['size'] === 'compact' ) ? 'lae-sc-compact' : 'lae-sc-banner';
+        $allowed_sizes = array( 'small', 'medium', 'large' );
+        $size = in_array( $atts['size'], $allowed_sizes, true ) ? $atts['size'] : 'medium';
 
-        ob_start();
-        ?>
-        <div class="lae-shortcode-wrapper lae-sc-responsible-gaming">
-            <p>
-                <span class="lae-logo-18"><strong>+18</strong></span>
-                Si juegas, juega con responsabilidad. El juego puede crear adicción.
-            </p>
-        </div>
-        <?php
-        return ob_get_clean();
+        $data = array(
+            'size'       => $size,
+            'size_class' => 'lae-size-' . $size,
+        );
+
+        return $this->render_template( 'responsible-gaming-block', $data );
     }
 
     public function render_age_warning() {
-        ob_start();
-        ?>
-        <div class="lae-shortcode-wrapper lae-sc-age-warning">
-            <div class="lae-sc-content">
-                <h4>Prohibida la venta a menores</h4>
-                <p>El acceso y la participación en los juegos comercializados por Loterías y Apuestas del Estado está estrictamente prohibido a los menores de 18 años.</p>
-            </div>
-        </div>
-        <?php
-        return ob_get_clean();
+        return $this->render_template( 'age-warning-block' );
     }
 
     public function render_phone_helpline() {
-        ob_start();
-        ?>
-        <div class="lae-shortcode-wrapper lae-sc-phone">
-            <a href="tel:024" class="lae-sc-phone-link">
-                <span class="lae-icon">☎</span> 
-                <span class="lae-text">Teléfono de ayuda:</span> 
-                <span class="lae-number">024</span>
-            </a>
-        </div>
-        <?php
-        return ob_get_clean();
+        return $this->render_template( 'phone-helpline-block' );
     }
 
     public function render_exclusion_links() {
-        ob_start();
-        ?>
-        <div class="lae-shortcode-wrapper lae-block-exclusion-links">
-            <p class="h3" style="text-align: center; margin-bottom: 20px; color: #111;">Recursos de Ayuda y Autoexclusión</p>
-            
-            <div class="lae-sc-exclusion-links">
-                
-                <a href="https://sede.ordenacionjuego.gob.es/es/registro-interdicciones" target="_blank" rel="noopener noreferrer" class="lae-sc-card-link">
-                    <strong style="display: block; font-size: 1.1em; margin-bottom: 5px;">Registro RGIAJ</strong>
-                    <span style="font-size: 0.85em; color: #666;">Solicitar autoexclusión estatal</span>
-                </a>
-
-                <a href="https://www.jugarbien.es" target="_blank" rel="noopener noreferrer" class="lae-sc-card-link">
-                    <strong style="display: block; font-size: 1.1em; margin-bottom: 5px;">Jugar Bien</strong>
-                    <span style="font-size: 0.85em; color: #666;">Información y prevención</span>
-                </a>
-
-                <a href="tel:024" class="lae-sc-card-link">
-                    <strong style="display: block; font-size: 1.1em; margin-bottom: 5px;">☎ Teléfono 024</strong>
-                    <span style="font-size: 0.85em; color: #666;">Línea de atención gratuita</span>
-                </a>
-                
-            </div>
-        </div>
-        <?php
-        return ob_get_clean();
+        return $this->render_template( 'exclusion-links-block' );
     }
 
-    public function render_probability_disclaimer() {
-        // We retrieve the chosen draw or set the default value
-        $sorteo = isset( $attributes['sorteo'] ) && ! empty( $attributes['sorteo'] ) ? $attributes['sorteo'] : 'Lotería Nacional';
+    public function render_probability_disclaimer( $atts ) {
+        $atts = shortcode_atts(
+            array(
+                'sorteo' => 'loteria-nacional',
+            ),
+            $atts,
+            'lae_probability_disclaimer'
+        );
 
-        ob_start();
-        ?>
+        $sorteo = sanitize_title( $atts['sorteo'] );
 
-        <div class="lae-block-probability" style="background-color: #fff9c4; border-left: 4px solid #fbc02d; padding: 15px; margin: 20px 0; font-size: 0.9em; color: #555; border-radius: 4px;">
-            <p style="margin: 0;">
-                <strong>Aviso sobre probabilidades:</strong> La participación en los juegos de lotería se basa en el azar. Las probabilidades de obtener premio en cada uno de los juegos comercializados por SELAE son públicas y pueden ser consultadas en los puntos de venta oficiales y en la web de Loterías y Apuestas del Estado.
-            </p>
-        </div>
-        <?php
-        return ob_get_clean();
+        $messages = array(
+            'loteria-nacional' => 'La participación en Lotería Nacional se basa en el azar. Las probabilidades de obtener premio pueden consultarse en los canales oficiales de Loterías y Apuestas del Estado.',
+            'euromillones'     => 'La participación en Euromillones se basa en el azar. Las probabilidades de obtener premio pueden consultarse en los canales oficiales de Loterías y Apuestas del Estado.',
+            'primitiva'        => 'La participación en La Primitiva se basa en el azar. Las probabilidades de obtener premio pueden consultarse en los canales oficiales de Loterías y Apuestas del Estado.',
+            'bonoloto'         => 'La participación en Bonoloto se basa en el azar. Las probabilidades de obtener premio pueden consultarse en los canales oficiales de Loterías y Apuestas del Estado.',
+            'quiniela'         => 'La participación en La Quiniela se basa en el azar. Las probabilidades de obtener premio pueden consultarse en los canales oficiales de Loterías y Apuestas del Estado.',
+        );
+
+        $message = isset( $messages[ $sorteo ] )
+            ? $messages[ $sorteo ]
+            : 'La participación en los juegos de lotería se basa en el azar. Las probabilidades de obtener premio pueden consultarse en los canales oficiales de Loterías y Apuestas del Estado.';
+
+        $data = array(
+            'sorteo'  => $sorteo,
+            'message' => $message,
+        );
+
+        return $this->render_template( 'probability-disclaimer-block', $data ); 
     }
 
     private function render_template( $template_name, $data = array() ) {
