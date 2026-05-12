@@ -25,30 +25,15 @@ class LAE_Compliance_Shortcodes {
     public function render_operator_info() {
         $options = get_option( 'lae_compliance_options', array() );
 
-        $admin_name  = !empty($options['admin_name']) ? $options['admin_name'] : 'No especificado';
-        $holder_nif  = !empty($options['holder_nif']) ? $options['holder_nif'] : 'No especificado';
-        
-        ob_start();
-        ?>
+        $data = array(
+            'admin_name'   => ! empty( $options['admin_name'] ) ? $options['admin_name'] : 'No especificado',
+            'admin_number' => ! empty( $options['admin_number'] ) ? $options['admin_number'] : 'No especificado',
+            'holder_name'  => ! empty( $options['holder_name'] ) ? $options['holder_name'] : 'No especificado',
+            'holder_nif'   => ! empty( $options['holder_nif'] ) ? $options['holder_nif'] : 'No especificado',
+            'address'      => ! empty( $options['address'] ) ? $options['address'] : 'No especificado',
+        );
 
-        <div class="lae-shortcode-wrapper lae-operator-info-card">
-            <h4 class="lae-operator-title">IDENTIFICACIÓN DEL VENDEDOR</h4>
-            
-            <div style="margin-bottom: 15px;">
-                <p style="margin: 0 0 8px 0; color: #333;">
-                    <strong>Titular/Administración:</strong> <?php echo esc_html( $admin_name ); ?>
-                </p>
-                <p style="margin: 0; color: #333;">
-                    <strong>NIF/CIF:</strong> <?php echo esc_html( $holder_nif ); ?>
-                </p>
-            </div>
-
-            <p style="margin: 0; font-size: 0.85em; color: #666; border-top: 1px solid #eee; padding-top: 10px;">
-                Punto de venta oficial de Loterías y Apuestas del Estado.
-            </p>
-        </div>
-        <?php
-        return ob_get_clean();
+        return $this->render_template( 'operator-info', $data );
     }
 
     public function render_responsible_footer() {
@@ -80,42 +65,13 @@ class LAE_Compliance_Shortcodes {
          */
 
         $options = get_option( 'lae_compliance_options', array() );
-        $admin_name = ! empty( $options['admin_name'] ) ? $options['admin_name'] : 'nuestra administración';
 
-        ob_start();
-        ?>
-        <div class="lae-legal-page lae-responsible-gaming-page">
-            <h2>Juego responsable</h2>
+        $data = array(
+            'admin_name' => ! empty( $options['admin_name'] ) ? $options['admin_name'] : 'nuestra administración',
+        );
 
-            <p>En <strong><?php echo esc_html( $admin_name ); ?></strong> promovemos un uso responsable de los juegos de lotería. La participación debe entenderse como una forma de ocio y nunca como una manera de obtener ingresos ni de resolver problemas económicos o personales.</p>
-
-            <p><strong>Prohibida la participación a menores de 18 años.</strong></p>
-
-            <p>Los juegos de lotería son juegos de azar. Participar no garantiza la obtención de premio y conviene hacerlo con moderación, autocontrol y dentro de unos límites personales.</p>
-
-            <p>Te recomendamos:</p>
-            <ul>
-                <li>jugar solo si eres mayor de edad</li>
-                <li>no gastar más de lo que puedas permitirte perder</li>
-                <li>no intentar recuperar pérdidas con nuevas compras</li>
-                <li>no jugar bajo estrés, ansiedad o presión económica</li>
-                <li>hacer pausas y revisar con frecuencia tus hábitos de juego</li>
-            </ul>
-
-            <p>Si crees que el juego deja de ser una actividad de ocio o te genera malestar, es importante parar y buscar ayuda o limitar tu acceso al juego.</p>
-
-            <h3>Recursos oficiales</h3>
-            <div class="lae-legal-page-links">
-                <a href="https://www.ordenacionjuego.es/participantes-juego/juego-seguro/medidas-juego-seguro/medidas-informacion-proteccion-personas" class="lae-badge-link" target="_blank" rel="noopener noreferrer">Juego Seguro</a>
-                <a href="https://www.ordenacionjuego.es/participantes-juego/juego-seguro/rgiaj" class="lae-badge-link" target="_blank" rel="noopener noreferrer">RGIAJ / Autoprohibición</a>
-                <a href="https://www.selae.es/es/web-corporativa/responsabilidad-social/gestion-responsable-del-juego/proteccion-a-menores" class="lae-badge-link" target="_blank" rel="noopener noreferrer">Protección a menores</a>
-                <a href="https://www.sanidad.gob.es/linea024/home.htm" class="lae-badge-link" target="_blank" rel="noopener noreferrer">Ayuda 024</a>
-            </div>
-
-            <p>En esta web puedes informarte sobre los juegos disponibles sin que exista obligación de participar. La decisión de compra o participación debe ser siempre libre, consciente y responsable.</p>
-        </div>
-        <?php
-        return ob_get_clean();
+        return $this->render_template( 'responsible-gaming-page', $data );
+    
     }
 
     public function render_autoexclusion_page() {
@@ -129,30 +85,7 @@ class LAE_Compliance_Shortcodes {
          * https://www.ordenacionjuego.es/participantes-juego/juego-seguro/rgiaj
          * https://www.ordenacionjuego.es/datos-estudios/actividad-historica/act-rgiaj
          */
-        ob_start();
-        ?>
-        <div class="lae-legal-page lae-autoexclusion-page">
-            <h2>Autoexclusión (RGIAJ)</h2>
-
-        ob_start();    <p>Si deseas limitar tu acceso a actividades de juego, puedes solicitar la inscripción en el <strong>Registro General de Interdicciones de Acceso al Juego (RGIAJ)</strong>, gestionado por la Dirección General de Ordenación del Juego.</p>
-
-            <p>La inscripción en el RGIAJ impide participar en aquellos juegos en los que la legislación exige la identificación previa del participante y constituye una medida oficial de protección para personas que desean restringir su acceso al juego.</p>
-
-            <p>Puedes solicitar la inscripción de forma electrónica a través de la sede oficial o mediante la presentación del formulario correspondiente en un registro público. Cuando la solicitud se realiza por sede electrónica, sus efectos son inmediatos.</p>
-
-            <p>La inscripción tiene carácter <strong>indefinido</strong>. No obstante, la persona interesada podrá solicitar su cancelación una vez transcurridos <strong>seis meses</strong> desde la fecha de inscripción.</p>
-
-            <p>Si necesitas comprobar tu situación en el registro o consultar información adicional sobre el procedimiento, puedes hacerlo a través de los canales oficiales de la Dirección General de Ordenación del Juego.</p>
-
-            <p>Para ampliar información sobre el procedimiento, consultar tu situación o acceder a la solicitud, puedes utilizar los recursos oficiales de la Dirección General de Ordenación del Juego.</p>
-
-            <div class="lae-legal-page-links">
-                <a href="https://www.ordenacionjuego.es/participantes-juego/juego-seguro/rgiaj" class="lae-badge-link" target="_blank" rel="noopener noreferrer">Información oficial sobre RGIAJ</a>
-                <a href="https://www.ordenacionjuego.es/datos-estudios/actividad-historica/act-rgiaj" class="lae-badge-link" target="_blank" rel="noopener noreferrer">Solicitud e inscripción</a>
-            </div>
-        </div>
-        <?php
-        return ob_get_clean();
+        return $this->render_template( 'autoexclusion-page' );
     }
 
     public function render_returns_policy_page() {
@@ -168,27 +101,12 @@ class LAE_Compliance_Shortcodes {
          */
 
         $options = get_option( 'lae_compliance_options', array() );
-        $admin_name = ! empty( $options['admin_name'] ) ? $options['admin_name'] : 'esta administración';
 
-        ob_start();
-        ?>
-        <div class="lae-legal-page lae-returns-policy-page">
-            <h2>Política de devoluciones</h2>
+        $data = array(
+            'admin_name' => ! empty( $options['admin_name'] ) ? $options['admin_name'] : 'esta administración',
+        );
 
-            <p>La gestión de compra de décimos, resguardos o participaciones realizada a través de <strong><?php echo esc_html( $admin_name ); ?></strong> está sujeta a la normativa aplicable en materia de juego y consumo.</p>
-
-            <p>Antes de finalizar tu compra, te recomendamos revisar cuidadosamente el sorteo seleccionado, la fecha del sorteo, el número elegido, el importe, la cantidad y cualquier otro dato relevante del pedido.</p>
-
-            <p>Una vez confirmada y formalizada la compra, y siempre que el pedido quede vinculado a un sorteo o fecha concreta, <strong>no procederá el derecho de desistimiento ni la devolución del importe</strong>, al tratarse de un servicio relacionado con actividades de esparcimiento cuando el contrato prevea una fecha o un periodo de ejecución específicos.</p>
-
-            <p>Por ese motivo, no será posible anular o devolver pedidos ya emitidos, gestionados o validados, salvo en aquellos supuestos en los que resulte aplicable una obligación legal distinta o exista una incidencia técnica o operativa imputable al servicio prestado.</p>
-
-            <p>En caso de incidencia, error técnico en el proceso de compra o duda sobre la gestión del pedido, podrás ponerte en contacto con <strong><?php echo esc_html( $admin_name ); ?></strong> a través de los canales habituales de atención para revisar el caso concreto.</p>
-
-            <p>Esta política afecta exclusivamente a la devolución o cancelación de compras ya realizadas y no limita otros derechos que puedan corresponder al usuario conforme a la normativa aplicable.</p>
-        </div>
-        <?php
-        return ob_get_clean();
+        return $this->render_template( 'returns-policy-page', $data );
     }
 
     /* M5 & M6 */
@@ -281,6 +199,22 @@ class LAE_Compliance_Shortcodes {
             </p>
         </div>
         <?php
+        return ob_get_clean();
+    }
+
+    private function render_template( $template_name, $data = array() ) {
+        $template_path = LAE_COMPLIANCE_PATH . 'templates/' . $template_name . '.php';
+
+        if ( ! file_exists( $template_path ) ) {
+            return '';
+        }
+
+        if ( ! empty( $data ) && is_array( $data ) ) {
+            extract( $data, EXTR_SKIP );
+        }
+
+        ob_start();
+        include $template_path;
         return ob_get_clean();
     }
 }
