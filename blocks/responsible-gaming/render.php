@@ -2,5 +2,7 @@
 /**
  * Render for Responsible Gaming Block
  */
-?>
-echo do_shortcode( '[lae_responsible_gaming]' );
+
+$size = isset( $attributes['size'] ) ? $attributes['size'] : 'medium';
+
+echo do_shortcode( '[lae_responsible_gaming size="' . esc_attr( $size ) . '"]' );

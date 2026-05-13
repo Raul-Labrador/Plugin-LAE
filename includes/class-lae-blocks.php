@@ -40,7 +40,7 @@ class LAE_Compliance_Blocks {
         wp_enqueue_script(
             'lae-blocks-editor',
             LAE_COMPLIANCE_URL . 'assets/js/lae-blocks-editor.js',
-            array( 'wp-blocks', 'wp-element', 'wp-server-side-render' ),
+            array( 'wp-blocks', 'wp-element', 'wp-server-side-render', 'wp-components', 'wp-block-editor' ),
             LAE_COMPLIANCE_VERSION,
             true
         );
