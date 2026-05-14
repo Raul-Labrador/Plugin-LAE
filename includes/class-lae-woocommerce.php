@@ -32,19 +32,15 @@ class LAE_Compliance_WooCommerce {
 
     public function product_probability_notice() {
         ?>
-        <div class="lae-wc-notice lae-product-notice" style="border: 1px solid #ffcc00; padding: 10px; margin-bottom: 20px; border-radius: 4px; background: #fffdf0;">
-            <p style="margin:0; font-size: 0.9em; color: #444;">
-                <i class="fas fa-info-circle" style="color: #d4af37; margin-right: 5px;"></i> 
-                <strong>Aviso legal:</strong> Los juegos de lotería son juegos de azar. Participar en ellos no garantiza la obtención de premio. Juega con responsabilidad.
-            </p>
+        <div class="woocommerce-message lae-product-notice">
+            <strong>Aviso:</strong> Los juegos de lotería son juegos de azar. Participar en ellos no garantiza la obtención de premio. Juega con responsabilidad.
         </div>
         <?php
     }
 
     public function cart_responsible_notice() {
         ?>
-        <div class="woocommerce-info lae-cart-notice">
-            <i class="fas fa-exclamation-triangle" style="margin-right: 5px;"></i> 
+        <div class="woocommerce-error lae-cart-notice">
             <strong>Política de devoluciones:</strong> Los décimos y resguardos adquiridos no admiten devolución una vez validados. Prohibida la venta a menores de 18 años.
         </div>
         <?php
@@ -115,16 +111,13 @@ class LAE_Compliance_WooCommerce {
         if ( $is_lottoei_page ) {
             ob_start();
             ?>
-            <div class="lae-wc-notice lae-product-notice" style="border: 1px solid #ffcc00; padding: 10px; margin-bottom: 20px; border-radius: 4px; background: #fffdf0;">
-                <p style="margin:0; font-size: 0.9em; color: #444;">
-                    <i class="fas fa-info-circle" style="color: #d4af37; margin-right: 5px;"></i> 
-                    <strong>Aviso legal:</strong> Los juegos de lotería son juegos de azar. Participar en ellos no garantiza la obtención de premio. Juega con responsabilidad.
-                </p>
+            <div class="woocommerce-message lae-product-notice" style="margin-bottom: 2em;">
+                <strong>Aviso:</strong> Los juegos de lotería son juegos de azar. Participar en ellos no garantiza la obtención de premio. Juega con responsabilidad.
             </div>
             <?php
             $aviso_legal = ob_get_clean();
 
-            // We posted our notice BEFORE the original content
+            // Pegamos nuestro aviso ANTES del contenido original (que incluye el shortcode de lottoei)
             $content = $aviso_legal . $content;
         }
 
