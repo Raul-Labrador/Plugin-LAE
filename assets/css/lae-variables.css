@@ -1,14 +1,4 @@
 :root {
-    --lae-age-gate-heading: var(--primary, #003366);
-
-    --lae-primary-color: var(--secondary, #000000); 
-    
-    --lae-footer-hover: var(--primary, #1e73be);
-
-    --lae-badge-hover-bg: var(--primary, #d4af37);
-    --lae-warning-accent: var(--primary, #d32f2f);
-
-
     --lae-footer-bg: #111111;
     --lae-footer-text: #f8f9fa;
     --lae-footer-border: rgba(255, 255, 255, 0.15);

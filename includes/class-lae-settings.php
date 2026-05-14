@@ -177,19 +177,12 @@ class LAE_Compliance_Settings {
         );
 
         add_settings_field(
-            'footer_show_on',
-            'Mostrar en',
-            array( $this, 'render_select_field' ),
+            'footer_is_sticky',
+            'Fijar en la parte inferior (Sticky)',
+            array( $this, 'render_toggle_field' ),
             'lae-compliance',
             'lae_section_footer',
-            array(
-                'id' => 'footer_show_on',
-                'options' => array(
-                    'all'  => 'Toda la web',
-                    'shop' => 'Solo páginas de tienda (WooCommerce)',
-                    'home' => 'Solo en la página de inicio',
-                ),
-            )
+            array( 'id' => 'footer_is_sticky' )
         );
 
         add_settings_field(
@@ -209,7 +202,7 @@ class LAE_Compliance_Settings {
 
         // Normalizar checkboxes para evitar avisos
         $output['enable_age_gate']          = ! empty( $output['enable_age_gate'] ) ? 1 : 0;
-        $output['enable_footer']            = ! empty( $output['enable_footer'] ) ? 1 : 0;
+        $output['footer_is_sticky']         = ! empty( $output['footer_is_sticky'] ) ? 1 : 0;
         $output['reset_age_gate_defaults']  = ! empty( $output['reset_age_gate_defaults'] ) ? 1 : 0;
         $output['reset_footer_defaults']    = ! empty( $output['reset_footer_defaults'] ) ? 1 : 0;
 
@@ -219,13 +212,6 @@ class LAE_Compliance_Settings {
         $output['holder_name']  = isset( $output['holder_name'] ) ? sanitize_text_field( $output['holder_name'] ) : '';
         $output['holder_nif']   = isset( $output['holder_nif'] ) ? sanitize_text_field( $output['holder_nif'] ) : '';
         $output['address']      = isset( $output['address'] ) ? sanitize_text_field( $output['address'] ) : '';
-
-        // Sanitizar selects
-        $allowed_show_on   = array( 'all', 'shop', 'home' );
-
-        $output['footer_show_on'] = ( isset( $output['footer_show_on'] ) && in_array( $output['footer_show_on'], $allowed_show_on, true ) )
-            ? $output['footer_show_on']
-            : 'all';
 
         // Sanitizar colores
         $output['age_gate_title_color']       = $this->sanitize_hex_color_or_default( $output['age_gate_title_color'] ?? '', '#1e73be' );
@@ -249,7 +235,7 @@ class LAE_Compliance_Settings {
             $output['footer_bg_color']       = '#000000';
             $output['footer_text_color']     = '#ffffff';
             $output['footer_hover_color']    = '#1e73be';
-            $output['footer_show_on']        = 'all';
+            $output['footer_is_sticky']      = 1;
             $output['reset_footer_defaults'] = 0;
         }
 

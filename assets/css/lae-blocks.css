@@ -14,7 +14,7 @@
 }
 
 .lae-operator-title.h4{
-    color: var(--lae-age-gate-heading);
+    color: var(--primary);
     margin-top: 0;
     margin-bottom: 15px;
     font-weight: bold;
@@ -46,7 +46,7 @@
 .lae-sc-card-link:hover,
 .lae-sc-phone-link:hover {
     transform: translateY(-2px) !important;
-    border-bottom-color: var(--lae-footer-hover) !important;
+    border-bottom-color: var(--primary) !important;
     box-shadow: 0 10px 15px var(--lae-card-shadow-hover) !important;
 }
 
@@ -96,7 +96,7 @@
 .lae-sc-age-warning {
     background-color: var(--lae-warning-bg) !important;
     border: 1px solid var(--lae-warning-border) !important;
-    border-left: 6px solid var(--lae-warning-accent) !important;
+    border-left: 6px solid var(--primary) !important;
     color: var(--lae-card-text) !important;
     padding: 20px !important;
     border-radius: 8px !important;

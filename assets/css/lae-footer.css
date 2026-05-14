@@ -44,7 +44,7 @@ a.lae-badge {
 }
 
 a.lae-badge:hover {
-    background-color: var(--lae-badge-hover-bg);
+    background-color: var(--primary);
     color: var(--lae-badge-hover-text);
 }
 
@@ -80,7 +80,7 @@ a.lae-badge:hover {
 .lae-footer-link:hover,
 .lae-btn-rgiaj:hover,
 .lae-btn-024:hover {
-    color: var(--lae-footer-hover) !important;
+    color: var(--primary) !important;
     text-decoration: underline !important;
     opacity: 1;
 }

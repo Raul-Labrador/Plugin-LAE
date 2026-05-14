@@ -21,11 +21,14 @@ class LAE_Compliance_Hooks {
 
         $options = get_option( 'lae_compliance_options', array() );
 
-        $footer_pos = ! empty( $options['footer_position'] ) ? esc_attr( $options['footer_position'] ) : 'fixed';
+        $is_sticky = isset( $options['footer_is_sticky'] ) ? $options['footer_is_sticky'] : 1;
 
         $custom_css = "
             .lae-compliance-footer-bar {
-                position: " . ( $footer_pos === 'static' ? 'static' : 'fixed' ) . ";
+                position: " . ( $is_sticky ? 'fixed' : 'static' ) . " !important;
+                bottom: 0;
+                width: 100%;
+                z-index: 9999;
             }
         ";
 
@@ -45,18 +48,6 @@ class LAE_Compliance_Hooks {
 
         if ( empty( $options['enable_footer'] ) ) {
             return;
-        }
-
-        $show_on = ! empty( $options['footer_show_on'] ) ? $options['footer_show_on'] : 'all';
-
-        if ( 'home' === $show_on && ! is_front_page() ) {
-            return;
-        }
-
-        if ( 'shop' === $show_on ) {
-            if ( ! function_exists( 'is_shop' ) || ( ! is_shop() && ! is_product() && ! is_cart() ) ) {
-                return;
-            }
         }
 
         echo do_shortcode( '[lae_responsible_footer]' );
