@@ -1,0 +1,10 @@
+{
+    "$schema": "https://schemas.wp.org/trunk/block.json",
+    "apiVersion": 2,
+    "name": "lae/age-warning",
+    "title": "Aviso +18 LAE",
+    "category": "widgets",
+    "icon": "warning",
+    "description": "Aviso legal de prohibición de venta a menores de 18 años.",
+    "render": "file:./render.php"
+}

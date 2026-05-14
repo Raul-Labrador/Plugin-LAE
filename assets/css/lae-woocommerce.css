@@ -1,0 +1,15 @@
+.woocommerce-message.lae-product-notice,
+.woocommerce-info.lae-cart-notice,
+.woocommerce-message.lae-cart-notice {
+    border-top: none !important; 
+    border-left: 5px solid #8fae1b !important;
+}
+
+.woocommerce-info.lae-cart-notice {
+    border-left: 5px solid #1e85be !important; 
+}
+
+.woocommerce-error.lae-cart-notice {
+    border-top: none !important; 
+    border-left: 5px solid #b81c23 !important;
+}

@@ -1,0 +1,16 @@
+{
+    "$schema": "https://schemas.wp.org/trunk/block.json",
+    "apiVersion": 2,
+    "name": "lae/probability-disclaimer",
+    "title": "Aviso de Probabilidades",
+    "category": "widgets",
+    "icon": "info",
+    "description": "Texto legal sobre las probabilidades de ganar, configurable por sorteo.",
+    "attributes": {
+        "sorteo": {
+            "type": "string",
+            "default": "Lotería Nacional"
+        }
+    },
+    "render": "file:./render.php"
+}

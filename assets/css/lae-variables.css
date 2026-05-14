@@ -1,0 +1,40 @@
+:root {
+    --lae-footer-bg: #111111;
+    --lae-footer-text: #f8f9fa;
+    --lae-footer-border: rgba(255, 255, 255, 0.15);
+
+    --lae-secondary-bg: #e0e0e0;
+    --lae-secondary-text: #333333;
+
+    --lae-primary-text: #ffffff;
+
+    --lae-age-gate-overlay: rgba(0, 0, 0, 0.85);
+    --lae-age-gate-bg: #ffffff;
+    --lae-age-gate-text: #333333;
+    --lae-age-gate-muted: #555555;
+    --lae-age-gate-border: #eeeeee;
+    --lae-age-gate-cookie-text: #999999;
+
+    --lae-badge-bg: #f0f0f0;
+    --lae-badge-text: #333333;
+    --lae-badge-hover-text: #111111;
+
+    --lae-card-bg: #ffffff;
+    --lae-card-text: #333333;
+    --lae-card-border: #d1d5db;
+    --lae-card-border-soft: #eef0f2;
+    --lae-card-border-bottom: #e5e7eb;
+    --lae-card-shadow: rgba(0, 0, 0, 0.05);
+    --lae-card-shadow-hover: rgba(0, 0, 0, 0.1);
+
+    --lae-warning-bg: #ffffff;
+    --lae-warning-border: #eeeeee;
+    --lae-warning-title: #b71c1c;
+    --lae-warning-text: #444444;
+
+    --lae-probability-bg: #fdfae6;
+    --lae-probability-text: #444444;
+
+    --lae-banner-bg: #111111;
+    --lae-banner-text: #ffffff;
+}
