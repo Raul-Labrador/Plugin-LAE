@@ -95,10 +95,20 @@ body.lae-no-scroll {
     overflow: hidden;
 }
 
-/* --- Responsive Age Gate --- */
+/* Responsive Age Gate */
 @media (max-width: 768px) {
     .lae-age-gate-buttons {
         flex-direction: column;
         gap: 10px;
+    }
+
+    .lae-age-gate-overlay {
+        align-items: flex-start !important; 
+        padding-top: 10vh !important; 
+    }
+    
+    .lae-age-gate-content {
+        max-height: 80vh;
+        overflow-y: auto;
     }
 }
