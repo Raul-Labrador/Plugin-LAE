@@ -16,6 +16,10 @@
     border-top: 1px solid var(--lae-footer-border);
 }
 
+.lae-compliance-footer-bar a.lae-footer-link:hover {
+    text-decoration: none !important;
+}
+
 .lae-compliance-logos {
     display: flex;
     align-items: center;

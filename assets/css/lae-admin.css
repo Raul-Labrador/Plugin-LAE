@@ -67,13 +67,48 @@
     cursor: pointer;
 }
 
+.lae-admin-form .submit {
+    margin-top: 10px;
+}
+
 .lae-switch-label {
     display: inline-flex;
     align-items: center;
-    gap: 10px;
-    font-weight: 500;
+    cursor: pointer;
 }
 
-.lae-admin-form .submit {
-    margin-top: 10px;
+.lae-switch-label input[type="checkbox"] {
+    -webkit-appearance: none !important;
+    appearance: none !important;
+    width: 44px !important;
+    height: 24px !important;
+    background-color: #cbd5e1 !important;
+    border-radius: 24px !important;
+    position: relative;
+    cursor: pointer;
+    margin: 0 10px 0 0 !important;
+    border: none !important;
+    transition: background-color 0.3s ease;
+    box-shadow: none !important;
+}
+
+.lae-switch-label input[type="checkbox"]::before {
+    content: "" !important;
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 18px;
+    height: 18px;
+    background-color: #ffffff;
+    border-radius: 50%;
+    transition: transform 0.3s ease;
+    margin: 0 !important;
+}
+
+.lae-switch-label input[type="checkbox"]:checked {
+    background-color: #2271b1 !important; 
+}
+
+.lae-switch-label input[type="checkbox"]:checked::before {
+    transform: translateX(20px);
 }

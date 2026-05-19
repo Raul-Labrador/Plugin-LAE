@@ -96,7 +96,7 @@ class LAE_Compliance_Settings {
             'lae_section_age_gate',
             array(
                 'id'      => 'age_gate_button_bg_color',
-                'default' => '#000000',
+                'default' => '#2ecc71',
             )
         );
 
@@ -215,7 +215,7 @@ class LAE_Compliance_Settings {
 
         // Sanitizar colores
         $output['age_gate_title_color']       = $this->sanitize_hex_color_or_default( $output['age_gate_title_color'] ?? '', '#1e73be' );
-        $output['age_gate_button_bg_color']   = $this->sanitize_hex_color_or_default( $output['age_gate_button_bg_color'] ?? '', '#000000' );
+        $output['age_gate_button_bg_color']   = $this->sanitize_hex_color_or_default( $output['age_gate_button_bg_color'] ?? '', '#2ecc71' );
         $output['age_gate_button_text_color'] = $this->sanitize_hex_color_or_default( $output['age_gate_button_text_color'] ?? '', '#ffffff' );
 
         $output['footer_bg_color']    = $this->sanitize_hex_color_or_default( $output['footer_bg_color'] ?? '', '#000000' );
@@ -225,7 +225,7 @@ class LAE_Compliance_Settings {
         // Restaurar defaults Age Gate
         if ( ! empty( $output['reset_age_gate_defaults'] ) ) {
             $output['age_gate_title_color']       = '#1e73be';
-            $output['age_gate_button_bg_color']   = '#000000';
+            $output['age_gate_button_bg_color']   = '#2ecc71';
             $output['age_gate_button_text_color'] = '#ffffff';
             $output['reset_age_gate_defaults']    = 0;
         }
@@ -319,6 +319,14 @@ class LAE_Compliance_Settings {
             LAE_COMPLIANCE_URL . 'assets/css/lae-admin.css',
             array(),
             LAE_COMPLIANCE_VERSION
+        );
+
+        wp_enqueue_script(
+            'lae-compliance-admin-script',
+            LAE_COMPLIANCE_URL . 'assets/js/lae-admin.js',
+            array(),
+            LAE_COMPLIANCE_VERSION,
+            true
         );
     }
 }
