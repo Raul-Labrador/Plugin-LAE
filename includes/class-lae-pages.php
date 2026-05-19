@@ -15,14 +15,6 @@ class LAE_Compliance_Pages {
                 'title'   => 'Autoexclusión',
                 'content' => '[lae_autoexclusion_page]',
             ),
-            'politica-devoluciones-loteria' => array(
-                'title'   => 'Política de devoluciones lotería',
-                'content' => '[lae_returns_policy_page]',
-            ),
-            'identificacion-operador' => array(
-                'title'   => 'Identificación del operador',
-                'content' => '[lae_operator_info]',
-            ),
         );
 
         foreach ( $pages as $slug => $page_data ) {

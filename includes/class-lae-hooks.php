@@ -8,7 +8,6 @@ class LAE_Compliance_Hooks {
     public function __construct() {
         add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_assets' ) );
         add_action( 'wp_footer', array( $this, 'render_footer_bar' ) );
-        add_filter( 'wp_nav_menu_items', array( $this, 'add_operator_link_to_footer_menu' ), 10, 2 );
     }
 
     public function enqueue_assets() {
@@ -53,22 +52,6 @@ class LAE_Compliance_Hooks {
         echo do_shortcode( '[lae_responsible_footer]' );
     }
 
-    public function add_operator_link_to_footer_menu( $items, $args ) {
-        if ( empty( $args->theme_location ) || 'footer' !== $args->theme_location ) {
-            return $items;
-        }
-
-        $operator_page_url = site_url( '/identificacion-operador/' );
-
-        $items .= '<li class="menu-item menu-item-type-custom menu-item-object-custom nav-item lae-operator-menu-item">';
-        $items .= '<a class="nav-link" href="' . esc_url( $operator_page_url ) . '">';
-        $items .= '<span class="span-help"><i class="far fa-circle"></i> &nbsp;</span>';
-        $items .= 'Identificación del operador';
-        $items .= '</a>';
-        $items .= '</li>';
-
-        return $items;
-    }
 }
 
 new LAE_Compliance_Hooks();

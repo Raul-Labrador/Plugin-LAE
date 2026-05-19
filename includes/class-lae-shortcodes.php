@@ -7,11 +7,9 @@ class LAE_Compliance_Shortcodes {
 
     public function __construct() {
         // M3 & M4 Legal Pages Shortcodes
-        add_shortcode( 'lae_operator_info', array( $this, 'render_operator_info' ) );
         add_shortcode( 'lae_responsible_footer', array( $this, 'render_responsible_footer' ) );
         add_shortcode( 'lae_responsible_gaming_page', array( $this, 'render_responsible_gaming_page' ) );
         add_shortcode( 'lae_autoexclusion_page', array( $this, 'render_autoexclusion_page' ) );
-        add_shortcode( 'lae_returns_policy_page', array( $this, 'render_returns_policy_page' ) );
 
         // M5 & M6 Compliance Blocks Shortcodes
         add_shortcode( 'lae_responsible_gaming', array( $this, 'render_responsible_gaming' ) );
@@ -19,21 +17,6 @@ class LAE_Compliance_Shortcodes {
         add_shortcode( 'lae_phone_helpline', array( $this, 'render_phone_helpline' ) );
         add_shortcode( 'lae_exclusion_links', array( $this, 'render_exclusion_links' ) );
         add_shortcode( 'lae_probability_disclaimer', array( $this, 'render_probability_disclaimer' ) );
-    }
-
-
-    public function render_operator_info() {
-        $options = get_option( 'lae_compliance_options', array() );
-
-        $data = array(
-            'admin_name'   => ! empty( $options['admin_name'] ) ? $options['admin_name'] : 'No especificado',
-            'admin_number' => ! empty( $options['admin_number'] ) ? $options['admin_number'] : 'No especificado',
-            'holder_name'  => ! empty( $options['holder_name'] ) ? $options['holder_name'] : 'No especificado',
-            'holder_nif'   => ! empty( $options['holder_nif'] ) ? $options['holder_nif'] : 'No especificado',
-            'address'      => ! empty( $options['address'] ) ? $options['address'] : 'No especificado',
-        );
-
-        return $this->render_template( 'operator-info', $data );
     }
 
     public function render_responsible_footer() {
@@ -86,27 +69,6 @@ class LAE_Compliance_Shortcodes {
          * https://www.ordenacionjuego.es/datos-estudios/actividad-historica/act-rgiaj
          */
         return $this->render_template( 'autoexclusion-page' );
-    }
-
-    public function render_returns_policy_page() {
-
-        /**
-         * Legal basis used for this page:
-         * - Article 103.l of Royal Legislative Decree 1/2007 (TRLGDCU):
-         *   the right of withdrawal does not apply to services related to leisure
-         *   activities when the contract provides for a specific date or period of performance.
-         *
-         * Official source:
-         * https://www.boe.es/buscar/act.php?id=BOE-A-2007-20555
-         */
-
-        $options = get_option( 'lae_compliance_options', array() );
-
-        $data = array(
-            'admin_name' => ! empty( $options['admin_name'] ) ? $options['admin_name'] : 'esta administración',
-        );
-
-        return $this->render_template( 'returns-policy-page', $data );
     }
 
     /* M5 & M6 */
