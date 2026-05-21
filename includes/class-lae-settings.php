@@ -25,12 +25,51 @@ class LAE_Compliance_Settings {
         );
     }
 
+    /**
+     * AUTOMATIC COLORFASTENING FUNCTION
+     * Search the database for the color configured by the active theme.
+     */
+    private function get_automatic_theme_color( $type = 'primary' ) {
+        // Fallback base (in case something goes wrong, we'll refund the DemoLottery ones)
+        $default = ( $type === 'primary' ) ? '#2ecc71' : '#1e73be';
+
+        $theme_mod_name = ( $type === 'primary' ) ? 'primary_color' : 'secondary_color';
+        $theme_mod_color = get_theme_mod( $theme_mod_name );
+        if ( ! empty( $theme_mod_color ) ) {
+            return $theme_mod_color;
+        }
+
+        if ( function_exists( 'wp_get_global_settings' ) ) {
+            $global_styles = wp_get_global_settings();
+            if ( isset( $global_styles['color']['palette']['theme'] ) ) {
+                foreach ( $global_styles['color']['palette']['theme'] as $color ) {
+                    if ( $color['slug'] === $type ) {
+                        return $color['color'];
+                    }
+                }
+            }
+        }
+
+        $elementor_settings = get_option( 'elementor_scheme_color' );
+        if ( $type === 'primary' && ! empty( $elementor_settings[1] ) ) {
+            return $elementor_settings[1];
+        } elseif ( $type === 'secondary' && ! empty( $elementor_settings[2] ) ) {
+            return $elementor_settings[2];
+        }
+
+        return $default;
+    }
+
     public function register_settings() {
         register_setting(
             'lae_compliance_group',
             'lae_compliance_options',
             array( $this, 'sanitize_options' )
         );
+
+        // We obtain the colors automatically.
+        $auto_primary   = $this->get_automatic_theme_color('primary');
+        $auto_secondary = $this->get_automatic_theme_color('secondary');
 
         // Administration Data
         add_settings_section(
@@ -84,7 +123,7 @@ class LAE_Compliance_Settings {
             'lae_section_age_gate',
             array(
                 'id'      => 'age_gate_title_color',
-                'default' => '#1e73be',
+                'default' => $auto_secondary,
             )
         );
 
@@ -96,7 +135,7 @@ class LAE_Compliance_Settings {
             'lae_section_age_gate',
             array(
                 'id'      => 'age_gate_button_bg_color',
-                'default' => '#2ecc71',
+                'default' => $auto_primary,
             )
         );
 
@@ -172,7 +211,7 @@ class LAE_Compliance_Settings {
             'lae_section_footer',
             array(
                 'id'      => 'footer_hover_color',
-                'default' => '#1e73be',
+                'default' => $auto_secondary, // Dinámico
             )
         );
 
@@ -200,41 +239,45 @@ class LAE_Compliance_Settings {
     public function sanitize_options( $input ) {
         $output = is_array( $input ) ? $input : array();
 
-        // Normalizar checkboxes para evitar avisos
+        // We get the colors automatically in the save file.
+        $auto_primary   = $this->get_automatic_theme_color('primary');
+        $auto_secondary = $this->get_automatic_theme_color('secondary');
+
+        // Normalize checkboxes
         $output['enable_age_gate']          = ! empty( $output['enable_age_gate'] ) ? 1 : 0;
         $output['footer_is_sticky']         = ! empty( $output['footer_is_sticky'] ) ? 1 : 0;
         $output['reset_age_gate_defaults']  = ! empty( $output['reset_age_gate_defaults'] ) ? 1 : 0;
         $output['reset_footer_defaults']    = ! empty( $output['reset_footer_defaults'] ) ? 1 : 0;
 
-        // Sanitizar textos
+        // Sanitize texts
         $output['admin_name']   = isset( $output['admin_name'] ) ? sanitize_text_field( $output['admin_name'] ) : '';
         $output['admin_number'] = isset( $output['admin_number'] ) ? sanitize_text_field( $output['admin_number'] ) : '';
         $output['holder_name']  = isset( $output['holder_name'] ) ? sanitize_text_field( $output['holder_name'] ) : '';
         $output['holder_nif']   = isset( $output['holder_nif'] ) ? sanitize_text_field( $output['holder_nif'] ) : '';
         $output['address']      = isset( $output['address'] ) ? sanitize_text_field( $output['address'] ) : '';
 
-        // Sanitizar colores
-        $output['age_gate_title_color']       = $this->sanitize_hex_color_or_default( $output['age_gate_title_color'] ?? '', '#1e73be' );
-        $output['age_gate_button_bg_color']   = $this->sanitize_hex_color_or_default( $output['age_gate_button_bg_color'] ?? '', '#2ecc71' );
+        // Sanitize colors
+        $output['age_gate_title_color']       = $this->sanitize_hex_color_or_default( $output['age_gate_title_color'] ?? '', $auto_secondary );
+        $output['age_gate_button_bg_color']   = $this->sanitize_hex_color_or_default( $output['age_gate_button_bg_color'] ?? '', $auto_primary );
         $output['age_gate_button_text_color'] = $this->sanitize_hex_color_or_default( $output['age_gate_button_text_color'] ?? '', '#ffffff' );
 
         $output['footer_bg_color']    = $this->sanitize_hex_color_or_default( $output['footer_bg_color'] ?? '', '#000000' );
         $output['footer_text_color']  = $this->sanitize_hex_color_or_default( $output['footer_text_color'] ?? '', '#ffffff' );
-        $output['footer_hover_color'] = $this->sanitize_hex_color_or_default( $output['footer_hover_color'] ?? '', '#1e73be' );
+        $output['footer_hover_color'] = $this->sanitize_hex_color_or_default( $output['footer_hover_color'] ?? '', $auto_secondary );
 
-        // Restaurar defaults Age Gate
+        // Restore defaults Age Gat
         if ( ! empty( $output['reset_age_gate_defaults'] ) ) {
-            $output['age_gate_title_color']       = '#1e73be';
-            $output['age_gate_button_bg_color']   = '#2ecc71';
+            $output['age_gate_title_color']       = $auto_secondary;
+            $output['age_gate_button_bg_color']   = $auto_primary;
             $output['age_gate_button_text_color'] = '#ffffff';
             $output['reset_age_gate_defaults']    = 0;
         }
 
-        // Restaurar defaults Footer
+        // Restore defaults Footer
         if ( ! empty( $output['reset_footer_defaults'] ) ) {
             $output['footer_bg_color']       = '#000000';
             $output['footer_text_color']     = '#ffffff';
-            $output['footer_hover_color']    = '#1e73be';
+            $output['footer_hover_color']    = $auto_secondary;
             $output['footer_is_sticky']      = 1;
             $output['reset_footer_defaults'] = 0;
         }
@@ -267,7 +310,8 @@ class LAE_Compliance_Settings {
     public function render_color_field( $args ) {
         $options = get_option( 'lae_compliance_options' );
         $default = isset( $args['default'] ) ? $args['default'] : '#000000';
-        $value   = isset( $options[ $args['id'] ] ) ? esc_attr( $options[ $args['id'] ] ) : $default;
+        // We use !empty instead of isset so that if they saved empty by mistake, it recovers the dynamic value.
+        $value   = ! empty( $options[ $args['id'] ] ) ? esc_attr( $options[ $args['id'] ] ) : $default;
         echo "<input type='color' name='lae_compliance_options[{$args['id']}]' value='{$value}' class='lae-color-field'>";
     }
 

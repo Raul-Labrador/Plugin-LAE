@@ -7,10 +7,29 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
-// Recuperamos las opciones para sacar el nombre de la empresa
+// We retrieved the options from the database
 $options = get_option( 'lae_compliance_options', array() );
 $admin_name = ! empty( $options['admin_name'] ) ? $options['admin_name'] : 'nuestra web';
+
+// We brought back the colors of Age Gate
+$title_color   = ! empty( $options['age_gate_title_color'] ) ? $options['age_gate_title_color'] : '#1e73be';
+$btn_bg_color  = ! empty( $options['age_gate_button_bg_color'] ) ? $options['age_gate_button_bg_color'] : '#2ecc71';
+$btn_txt_color = ! empty( $options['age_gate_button_text_color'] ) ? $options['age_gate_button_text_color'] : '#ffffff';
 ?>
+
+<style>
+    #lae-age-gate-overlay .lae-age-title {
+        color: <?php echo esc_attr( $title_color ); ?> !important;
+    }
+    #lae-age-gate-overlay .lae-btn-yes {
+        background-color: <?php echo esc_attr( $btn_bg_color ); ?> !important;
+        border-color: <?php echo esc_attr( $btn_bg_color ); ?> !important;
+        color: <?php echo esc_attr( $btn_txt_color ); ?> !important;
+    }
+    #lae-age-gate-overlay .lae-age-welcome strong {
+        color: <?php echo esc_attr( $title_color ); ?> !important;
+    }
+</style>
 
 <div id="lae-age-gate-overlay" class="lae-age-gate-overlay" style="display: none;" role="dialog" aria-modal="true" aria-labelledby="lae-age-title">
     
