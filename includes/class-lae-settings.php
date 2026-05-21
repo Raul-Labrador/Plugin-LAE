@@ -1,0 +1,382 @@
+<?php
+/**
+ * Class to manage the plugin settings in the WordPress admin.
+ */
+
+if ( ! defined( 'ABSPATH' ) ) {
+    exit;
+}
+
+class LAE_Compliance_Settings {
+
+    public function __construct() {
+        add_action( 'admin_menu', array( $this, 'add_settings_page' ) );
+        add_action( 'admin_init', array( $this, 'register_settings' ) );
+        add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_assets' ) );
+    }
+
+    public function add_settings_page() {
+        add_options_page(
+            __( 'Cumplimiento LAE', 'lotto-lae-compliance' ),
+            __( 'Cumplimiento LAE', 'lotto-lae-compliance' ),
+            'manage_options',
+            'lae-compliance',
+            array( $this, 'render_settings_page' )
+        );
+    }
+
+    /**
+     * AUTOMATIC COLORFASTENING FUNCTION
+     * Search the database for the color configured by the active theme.
+     */
+    private function get_automatic_theme_color( $type = 'primary' ) {
+        // Fallback base (in case something goes wrong, we'll refund the DemoLottery ones)
+        $default = ( $type === 'primary' ) ? '#2ecc71' : '#1e73be';
+
+        $theme_mod_name = ( $type === 'primary' ) ? 'primary_color' : 'secondary_color';
+        $theme_mod_color = get_theme_mod( $theme_mod_name );
+        if ( ! empty( $theme_mod_color ) ) {
+            return $theme_mod_color;
+        }
+
+        if ( function_exists( 'wp_get_global_settings' ) ) {
+            $global_styles = wp_get_global_settings();
+            if ( isset( $global_styles['color']['palette']['theme'] ) ) {
+                foreach ( $global_styles['color']['palette']['theme'] as $color ) {
+                    if ( $color['slug'] === $type ) {
+                        return $color['color'];
+                    }
+                }
+            }
+        }
+
+        $elementor_settings = get_option( 'elementor_scheme_color' );
+        if ( $type === 'primary' && ! empty( $elementor_settings[1] ) ) {
+            return $elementor_settings[1];
+        } elseif ( $type === 'secondary' && ! empty( $elementor_settings[2] ) ) {
+            return $elementor_settings[2];
+        }
+
+        return $default;
+    }
+
+    public function register_settings() {
+        register_setting(
+            'lae_compliance_group',
+            'lae_compliance_options',
+            array( $this, 'sanitize_options' )
+        );
+
+        // We obtain the colors automatically.
+        $auto_primary   = $this->get_automatic_theme_color('primary');
+        $auto_secondary = $this->get_automatic_theme_color('secondary');
+
+        // Administration Data
+        add_settings_section(
+            'lae_section_admin',
+            __( 'Datos de la Administración', 'lotto-lae-compliance' ),
+            array( $this, 'render_admin_section' ),
+            'lae-compliance'
+        );
+
+        $admin_fields = array(
+            'admin_name'   => __( 'Nombre de la administración', 'lotto-lae-compliance' ),
+            'admin_number' => __( 'Número de administración LAE', 'lotto-lae-compliance' ),
+            'holder_name'  => __( 'Nombre del titular / responsable', 'lotto-lae-compliance' ),
+            'holder_nif'   => __( 'NIF del titular', 'lotto-lae-compliance' ),
+            'address'      => __( 'Dirección física', 'lotto-lae-compliance' ),
+        );
+
+        foreach ( $admin_fields as $id => $label ) {
+            add_settings_field(
+                $id,
+                $label,
+                array( $this, 'render_input_field' ),
+                'lae-compliance',
+                'lae_section_admin',
+                array( 'id' => $id )
+            );
+        }
+
+        add_settings_section(
+            'lae_section_age_gate',
+            __( 'Configuración Age Gate (Popup +18)', 'lotto-lae-compliance' ),
+            array( $this, 'render_age_gate_section' ),
+            'lae-compliance'
+        );
+
+        add_settings_field(
+            'enable_age_gate',
+            __( 'Activar Age Gate', 'lotto-lae-compliance' ),
+            array( $this, 'render_toggle_field' ),
+            'lae-compliance',
+            'lae_section_age_gate',
+            array( 'id' => 'enable_age_gate' )
+        );
+
+        add_settings_field(
+            'age_gate_title_color',
+            __( 'Color del título', 'lotto-lae-compliance' ),
+            array( $this, 'render_color_field' ),
+            'lae-compliance',
+            'lae_section_age_gate',
+            array(
+                'id'      => 'age_gate_title_color',
+                'default' => $auto_secondary,
+            )
+        );
+
+        add_settings_field(
+            'age_gate_button_bg_color',
+            __( 'Color de fondo botón principal', 'lotto-lae-compliance' ),
+            array( $this, 'render_color_field' ),
+            'lae-compliance',
+            'lae_section_age_gate',
+            array(
+                'id'      => 'age_gate_button_bg_color',
+                'default' => $auto_primary,
+            )
+        );
+
+        add_settings_field(
+            'age_gate_button_text_color',
+            __( 'Color de texto botón principal', 'lotto-lae-compliance' ),
+            array( $this, 'render_color_field' ),
+            'lae-compliance',
+            'lae_section_age_gate',
+            array(
+                'id'      => 'age_gate_button_text_color',
+                'default' => '#ffffff',
+            )
+        );
+
+        add_settings_field(
+            'reset_age_gate_defaults',
+            __( 'Restaurar Age Gate por defecto', 'lotto-lae-compliance' ),
+            array( $this, 'render_toggle_field' ),
+            'lae-compliance',
+            'lae_section_age_gate',
+            array(
+                'id' => 'reset_age_gate_defaults',
+            )
+        );
+
+        add_settings_section(
+            'lae_section_footer',
+            __( 'Configuración del Footer Compliance', 'lotto-lae-compliance' ),
+            array( $this, 'render_footer_section' ),
+            'lae-compliance'
+        );
+
+        add_settings_field(
+            'enable_footer',
+            __( 'Activar Footer Bar', 'lotto-lae-compliance' ),
+            array( $this, 'render_toggle_field' ),
+            'lae-compliance',
+            'lae_section_footer',
+            array( 'id' => 'enable_footer' )
+        );
+
+        add_settings_field(
+            'footer_bg_color',
+            __( 'Color de fondo', 'lotto-lae-compliance' ),
+            array( $this, 'render_color_field' ),
+            'lae-compliance',
+            'lae_section_footer',
+            array(
+                'id'      => 'footer_bg_color',
+                'default' => '#000000',
+            )
+        );
+
+        add_settings_field(
+            'footer_text_color',
+            __( 'Color de texto', 'lotto-lae-compliance' ),
+            array( $this, 'render_color_field' ),
+            'lae-compliance',
+            'lae_section_footer',
+            array(
+                'id'      => 'footer_text_color',
+                'default' => '#ffffff',
+            )
+        );
+
+        add_settings_field(
+            'footer_hover_color',
+            __( 'Color de enlaces (Hover)', 'lotto-lae-compliance' ),
+            array( $this, 'render_color_field' ),
+            'lae-compliance',
+            'lae_section_footer',
+            array(
+                'id'      => 'footer_hover_color',
+                'default' => $auto_secondary,
+            )
+        );
+
+        add_settings_field(
+            'footer_is_sticky',
+            __( 'Fijar en la parte inferior (Sticky)', 'lotto-lae-compliance' ),
+            array( $this, 'render_toggle_field' ),
+            'lae-compliance',
+            'lae_section_footer',
+            array( 'id' => 'footer_is_sticky' )
+        );
+
+        add_settings_field(
+            'reset_footer_defaults',
+            __( 'Restaurar Footer por defecto', 'lotto-lae-compliance' ),
+            array( $this, 'render_toggle_field' ),
+            'lae-compliance',
+            'lae_section_footer',
+            array(
+                'id' => 'reset_footer_defaults',
+            )
+        );
+    }
+
+    public function sanitize_options( $input ) {
+        $output = is_array( $input ) ? $input : array();
+
+        // We get the colors automatically in the save file.
+        $auto_primary   = $this->get_automatic_theme_color('primary');
+        $auto_secondary = $this->get_automatic_theme_color('secondary');
+
+        // Normalize checkboxes
+        $output['enable_age_gate']         = ! empty( $output['enable_age_gate'] ) ? 1 : 0;
+        $output['footer_is_sticky']        = ! empty( $output['footer_is_sticky'] ) ? 1 : 0;
+        $output['reset_age_gate_defaults'] = ! empty( $output['reset_age_gate_defaults'] ) ? 1 : 0;
+        $output['reset_footer_defaults']   = ! empty( $output['reset_footer_defaults'] ) ? 1 : 0;
+
+        // Sanitize texts
+        $output['admin_name']   = isset( $output['admin_name'] ) ? sanitize_text_field( $output['admin_name'] ) : '';
+        $output['admin_number'] = isset( $output['admin_number'] ) ? sanitize_text_field( $output['admin_number'] ) : '';
+        $output['holder_name']  = isset( $output['holder_name'] ) ? sanitize_text_field( $output['holder_name'] ) : '';
+        $output['holder_nif']   = isset( $output['holder_nif'] ) ? sanitize_text_field( $output['holder_nif'] ) : '';
+        $output['address']      = isset( $output['address'] ) ? sanitize_text_field( $output['address'] ) : '';
+
+        // Sanitize colors
+        $output['age_gate_title_color']       = $this->sanitize_hex_color_or_default( $output['age_gate_title_color'] ?? '', $auto_secondary );
+        $output['age_gate_button_bg_color']   = $this->sanitize_hex_color_or_default( $output['age_gate_button_bg_color'] ?? '', $auto_primary );
+        $output['age_gate_button_text_color'] = $this->sanitize_hex_color_or_default( $output['age_gate_button_text_color'] ?? '', '#ffffff' );
+
+        $output['footer_bg_color']    = $this->sanitize_hex_color_or_default( $output['footer_bg_color'] ?? '', '#000000' );
+        $output['footer_text_color']  = $this->sanitize_hex_color_or_default( $output['footer_text_color'] ?? '', '#ffffff' );
+        $output['footer_hover_color'] = $this->sanitize_hex_color_or_default( $output['footer_hover_color'] ?? '', $auto_secondary );
+
+        // Restore defaults Age Gate
+        if ( ! empty( $output['reset_age_gate_defaults'] ) ) {
+            $output['age_gate_title_color']       = $auto_secondary;
+            $output['age_gate_button_bg_color']   = $auto_primary;
+            $output['age_gate_button_text_color'] = '#ffffff';
+            $output['reset_age_gate_defaults']    = 0;
+        }
+
+        // Restore defaults Footer
+        if ( ! empty( $output['reset_footer_defaults'] ) ) {
+            $output['footer_bg_color']       = '#000000';
+            $output['footer_text_color']     = '#ffffff';
+            $output['footer_hover_color']    = $auto_secondary;
+            $output['footer_is_sticky']      = 1;
+            $output['reset_footer_defaults'] = 0;
+        }
+
+        return $output;
+    }
+
+    private function sanitize_hex_color_or_default( $color, $default ) {
+        $sanitized = sanitize_hex_color( $color );
+        return $sanitized ? $sanitized : $default;
+    }
+
+    public function render_input_field( $args ) {
+        $options = get_option( 'lae_compliance_options' );
+        $value   = isset( $options[ $args['id'] ] ) ? esc_attr( $options[ $args['id'] ] ) : '';
+        echo "<input type='text' name='lae_compliance_options[{$args['id']}]' value='{$value}' class='regular-text lae-input'>";
+    }
+
+    public function render_toggle_field( $args ) {
+        $options = get_option( 'lae_compliance_options' );
+        $checked = isset( $options[ $args['id'] ] ) && $options[ $args['id'] ] == 1 ? 'checked' : '';
+        echo "<label class='lae-switch-label'>";
+        echo "<input type='checkbox' name='lae_compliance_options[{$args['id']}]' value='1' {$checked}>";
+        echo '<span>' . esc_html__( 'Activado', 'lotto-lae-compliance' ) . '</span>';
+        echo "</label>";
+    }
+
+    public function render_color_field( $args ) {
+        $options = get_option( 'lae_compliance_options' );
+        $default = isset( $args['default'] ) ? $args['default'] : '#000000';
+        // We use !empty instead of isset so that if they saved empty by mistake, it recovers the dynamic value.
+        $value   = ! empty( $options[ $args['id'] ] ) ? esc_attr( $options[ $args['id'] ] ) : $default;
+        echo "<input type='color' name='lae_compliance_options[{$args['id']}]' value='{$value}' class='lae-color-field'>";
+    }
+
+    public function render_select_field( $args ) {
+        $options = get_option( 'lae_compliance_options' );
+        $current = isset( $options[ $args['id'] ] ) ? $options[ $args['id'] ] : '';
+
+        echo "<select name='lae_compliance_options[{$args['id']}]' class='lae-select-field'>";
+        foreach ( $args['options'] as $value => $label ) {
+            echo "<option value='{$value}' " . selected( $current, $value, false ) . ">{$label}</option>";
+        }
+        echo "</select>";
+    }
+
+    public function render_admin_section() {
+        echo '<p class="lae-section-description">' . esc_html__( 'Completa aquí los datos identificativos de la administración que se mostrarán en las páginas legales y bloques de cumplimiento.', 'lotto-lae-compliance' ) . '</p>';
+    }
+
+    public function render_age_gate_section() {
+        echo '<p class="lae-section-description">' . esc_html__( 'Configura el popup de verificación de mayoría de edad y su apariencia visual.', 'lotto-lae-compliance' ) . '</p>';
+    }
+
+    public function render_footer_section() {
+        echo '<p class="lae-section-description">' . esc_html__( 'Define cómo se mostrará la barra inferior de cumplimiento en la web.', 'lotto-lae-compliance' ) . '</p>';
+    }
+
+    public function render_settings_page() {
+        ?>
+        <div class="wrap lae-admin-page">
+            <h1><?php echo esc_html__( 'Configuración de Cumplimiento LAE', 'lotto-lae-compliance' ); ?></h1>
+            <form method="post" action="options.php" class="lae-admin-form">
+                <?php
+                settings_fields( 'lae_compliance_group' );
+                do_settings_sections( 'lae-compliance' );
+                submit_button( __( 'Guardar cambios', 'lotto-lae-compliance' ) );
+                ?>
+            </form>
+        </div>
+        <?php
+    }
+
+    public function enqueue_admin_assets( $hook ) {
+        if ( 'settings_page_lae-compliance' !== $hook ) {
+            return;
+        }
+
+        wp_enqueue_style(
+            'lae-compliance-admin-style',
+            LAE_COMPLIANCE_URL . 'assets/css/lae-admin.css',
+            array(),
+            LAE_COMPLIANCE_VERSION
+        );
+
+        wp_enqueue_script(
+            'lae-compliance-admin-script',
+            LAE_COMPLIANCE_URL . 'assets/js/lae-admin.js',
+            array(),
+            LAE_COMPLIANCE_VERSION,
+            true
+        );
+        wp_localize_script(
+            'lae-compliance-admin-script',
+            'laeAdminI18n',
+            array(
+                'restoring'      => __( 'Restaurando...', 'lotto-lae-compliance' ),
+                'restoreDefault' => __( '↺ Restaurar por defecto', 'lotto-lae-compliance' ),
+            )
+        );
+    }
+}
+
+new LAE_Compliance_Settings();

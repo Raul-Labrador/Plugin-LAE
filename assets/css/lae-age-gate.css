@@ -1,0 +1,114 @@
+/* AGE GATE */
+.lae-age-gate-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--lae-age-gate-overlay);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999999;
+    backdrop-filter: blur(5px);
+}
+
+.lae-age-gate-content {
+    background-color: var(--lae-age-gate-bg, #ffffff);
+    padding: 40px;
+    border-radius: 8px;
+    text-align: center;
+    max-width: 500px;
+    width: 90%;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    color: var(--lae-age-gate-text);
+}
+
+.lae-age-welcome {
+    font-size: 1.1rem;
+    color: var(--lae-age-gate-muted);
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.lae-age-welcome strong {
+    color: var(--primary);
+}
+
+.lae-age-title {
+    font-size: 2.2rem;
+    font-weight: 800;
+    margin: 5px 0 15px;
+    color: var(--primary);
+}
+
+.lae-age-text p {
+    font-size: 1rem;
+    color: var(--lae-age-gate-text);
+    margin-bottom: 25px;
+}
+
+.lae-age-gate-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 25px;
+}
+
+.lae-btn-yes,
+.lae-btn-no {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 4px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    font-weight: bold;
+    transition: opacity 0.3s ease;
+}
+
+.lae-btn-yes {
+    background-color: var(--secondary);
+    color: var(--lae-primary-text);
+}
+
+.lae-btn-no {
+    background-color: var(--lae-secondary-bg);
+    color: var(--lae-secondary-text);
+}
+
+.lae-btn-yes:hover,
+.lae-btn-no:hover {
+    opacity: 0.8;
+}
+
+.lae-cookie-warning {
+    font-size: 0.7rem !important;
+    color: var(--lae-age-gate-cookie-text) !important;
+    margin-top: 20px;
+    line-height: 1.3;
+    border-top: 1px solid var(--lae-age-gate-border);
+    padding-top: 15px;
+}
+
+body.lae-no-scroll {
+    overflow: hidden;
+}
+
+/* Responsive Age Gate */
+@media (max-width: 768px) {
+    .lae-age-gate-buttons {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .lae-age-gate-overlay {
+        align-items: flex-start !important; 
+        padding-top: 10vh !important; 
+    }
+    
+    .lae-age-gate-content {
+        max-height: 80vh;
+        overflow-y: auto;
+    }
+}

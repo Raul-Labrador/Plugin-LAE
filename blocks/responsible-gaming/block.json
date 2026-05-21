@@ -1,0 +1,16 @@
+{
+    "$schema": "https://schemas.wp.org/trunk/block.json",
+    "apiVersion": 2,
+    "name": "lae/responsible-gaming",
+    "title": "Banner Juego Responsable",
+    "category": "widgets",
+    "icon": "shield",
+    "description": "Banner de juego responsable con tamaño configurable.",
+    "attributes": {
+        "size": {
+            "type": "string",
+            "default": "banner"
+        }
+    },
+    "render": "file:./render.php"
+}

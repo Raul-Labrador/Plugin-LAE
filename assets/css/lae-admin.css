@@ -1,0 +1,114 @@
+.lae-admin-page {
+    max-width: 980px;
+}
+
+.lae-admin-page h1 {
+    margin-bottom: 24px;
+}
+
+.lae-admin-form h2 {
+    background: #fff;
+    border: 1px solid #dcdcde;
+    border-bottom: 0;
+    border-radius: 12px 12px 0 0;
+    padding: 18px 22px;
+    margin: 28px 0 0;
+    font-size: 20px;
+    line-height: 1.3;
+}
+
+.lae-admin-form .lae-section-description {
+    background: #fff;
+    border-left: 1px solid #dcdcde;
+    border-right: 1px solid #dcdcde;
+    margin: 0;
+    padding: 0 22px 16px;
+    color: #646970;
+}
+
+.lae-admin-form .form-table {
+    background: #fff;
+    border: 1px solid #dcdcde;
+    border-top: 0;
+    border-radius: 0 0 12px 12px;
+    margin-top: 0;
+    margin-bottom: 24px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
+
+.lae-admin-form .form-table th,
+.lae-admin-form .form-table td {
+    padding: 18px 22px;
+    vertical-align: middle;
+}
+
+.lae-admin-form .form-table tr:not(:last-child) th,
+.lae-admin-form .form-table tr:not(:last-child) td {
+    border-bottom: 1px solid #f0f0f1;
+}
+
+.lae-admin-form .form-table th {
+    width: 260px;
+    font-weight: 600;
+    color: #1d2327;
+}
+
+.lae-input,
+.lae-select-field {
+    width: 100%;
+    max-width: 420px;
+}
+
+.lae-color-field {
+    width: 64px;
+    height: 36px;
+    padding: 2px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.lae-admin-form .submit {
+    margin-top: 10px;
+}
+
+.lae-switch-label {
+    display: inline-flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.lae-switch-label input[type="checkbox"] {
+    -webkit-appearance: none !important;
+    appearance: none !important;
+    width: 44px !important;
+    height: 24px !important;
+    background-color: #cbd5e1 !important;
+    border-radius: 24px !important;
+    position: relative;
+    cursor: pointer;
+    margin: 0 10px 0 0 !important;
+    border: none !important;
+    transition: background-color 0.3s ease;
+    box-shadow: none !important;
+}
+
+.lae-switch-label input[type="checkbox"]::before {
+    content: "" !important;
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 18px;
+    height: 18px;
+    background-color: #ffffff;
+    border-radius: 50%;
+    transition: transform 0.3s ease;
+    margin: 0 !important;
+}
+
+.lae-switch-label input[type="checkbox"]:checked {
+    background-color: #2271b1 !important; 
+}
+
+.lae-switch-label input[type="checkbox"]:checked::before {
+    transform: translateX(20px);
+}
