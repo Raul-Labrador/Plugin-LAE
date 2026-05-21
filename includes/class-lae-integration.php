@@ -9,12 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 class LAE_Compliance_Integration {
 
-    /**
-     * Obtiene los datos del operador priorizando la Base de Datos (ajustes).
-     * Si no existen, busca un archivo JSON de configuración.
-     */
     public static function get_operator_data() {
-        // 1. Intentamos leer de los ajustes del plugin
         $options = get_option( 'lae_compliance_options', array() );
 
         if ( ! empty( $options ) ) {
@@ -27,7 +22,6 @@ class LAE_Compliance_Integration {
             );
         }
 
-        // 2. Fallback: si la BD está vacía, buscamos el archivo JSON físico
         $json_path = ABSPATH . 'client-config.json';
 
         if ( file_exists( $json_path ) ) {
@@ -36,8 +30,7 @@ class LAE_Compliance_Integration {
 
             if ( json_last_error() === JSON_ERROR_NONE && ! empty( $json_data ) ) {
                 return array(
-                    'admin_name'   => isset( $json_data['nombre_administracion'] ) ? sanitize_text_field( $json_data['nombre_administracion'] ) : 'Administración no definida',
-                    'admin_number' => isset( $json_data['numero_administracion'] ) ? sanitize_text_field( $json_data['numero_administracion'] ) : '',
+                    'admin_name'   => isset( $json_data['nombre_administracion'] ) ? sanitize_text_field( $json_data['nombre_administracion'] ) : __( 'Administración no definida', 'lotto-lae-compliance' ),                    'admin_number' => isset( $json_data['numero_administracion'] ) ? sanitize_text_field( $json_data['numero_administracion'] ) : '',
                     'holder_name'  => isset( $json_data['titular'] ) ? sanitize_text_field( $json_data['titular'] ) : '',
                     'holder_nif'   => isset( $json_data['nif'] ) ? sanitize_text_field( $json_data['nif'] ) : '',
                     'address'      => isset( $json_data['direccion'] ) ? sanitize_text_field( $json_data['direccion'] ) : '',
@@ -45,9 +38,8 @@ class LAE_Compliance_Integration {
             }
         }
 
-        // 3. Valores por defecto
         return array(
-            'admin_name'   => 'Administración de Loterías',
+            'admin_name'   => __( 'Administración de Loterías', 'lotto-lae-compliance' ),
             'admin_number' => '',
             'holder_name'  => '',
             'holder_nif'   => '',

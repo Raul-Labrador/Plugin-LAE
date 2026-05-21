@@ -31,6 +31,15 @@ class LAE_Compliance_Age_Gate {
             LAE_COMPLIANCE_VERSION,
             true // true = Load in the footer to avoid slowing down the website
         );
+        wp_localize_script(
+            'lae-compliance-js',
+            'laeComplianceI18n',
+            array(
+                'deniedTitle' => __( 'Acceso no permitido', 'lotto-lae-compliance' ),
+                'deniedLine1' => __( 'Lo sentimos, este sitio está restringido a mayores de 18 años.', 'lotto-lae-compliance' ),
+                'deniedLine2' => __( 'No puedes acceder al contenido.', 'lotto-lae-compliance' ),
+            )
+        );
         
         // Ensure the main plugin stylesheet is loaded before adding inline CSS.
         wp_enqueue_style(

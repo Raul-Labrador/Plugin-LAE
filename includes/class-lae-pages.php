@@ -8,11 +8,11 @@ class LAE_Compliance_Pages {
     public static function create_all_if_not_exist() {
         $pages = array(
             'juego-responsable' => array(
-                'title'   => 'Juego responsable',
+                'title'   => __( 'Juego responsable', 'lotto-lae-compliance' ),
                 'content' => '[lae_responsible_gaming_page]',
             ),
             'autoexclusion' => array(
-                'title'   => 'Autoexclusión',
+                'title'   => __( 'Autoexclusión', 'lotto-lae-compliance' ),
                 'content' => '[lae_autoexclusion_page]',
             ),
         );

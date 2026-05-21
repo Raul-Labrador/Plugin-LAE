@@ -6,12 +6,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 class LAE_Compliance_Shortcodes {
 
     public function __construct() {
-        // M3 & M4 Legal Pages Shortcodes
         add_shortcode( 'lae_responsible_footer', array( $this, 'render_responsible_footer' ) );
         add_shortcode( 'lae_responsible_gaming_page', array( $this, 'render_responsible_gaming_page' ) );
         add_shortcode( 'lae_autoexclusion_page', array( $this, 'render_autoexclusion_page' ) );
+        
 
-        // M5 & M6 Compliance Blocks Shortcodes
         add_shortcode( 'lae_responsible_gaming', array( $this, 'render_responsible_gaming' ) );
         add_shortcode( 'lae_age_warning', array( $this, 'render_age_warning' ) );
         add_shortcode( 'lae_phone_helpline', array( $this, 'render_phone_helpline' ) );
@@ -50,11 +49,10 @@ class LAE_Compliance_Shortcodes {
         $options = get_option( 'lae_compliance_options', array() );
 
         $data = array(
-            'admin_name' => ! empty( $options['admin_name'] ) ? $options['admin_name'] : 'nuestra administración',
+            'admin_name' => ! empty( $options['admin_name'] ) ? $options['admin_name'] : __( 'nuestra administración', 'lotto-lae-compliance' ),
         );
 
         return $this->render_template( 'responsible-gaming-page', $data );
-    
     }
 
     public function render_autoexclusion_page() {
@@ -70,8 +68,6 @@ class LAE_Compliance_Shortcodes {
          */
         return $this->render_template( 'autoexclusion-page' );
     }
-
-    /* M5 & M6 */
 
     public function render_responsible_gaming( $atts ) {
         $atts = shortcode_atts(
@@ -117,23 +113,23 @@ class LAE_Compliance_Shortcodes {
         $sorteo = sanitize_title( $atts['sorteo'] );
 
         $messages = array(
-            'loteria-nacional' => 'La participación en Lotería Nacional se basa en el azar. Las probabilidades de obtener premio pueden consultarse en los canales oficiales de Loterías y Apuestas del Estado.',
-            'euromillones'     => 'La participación en Euromillones se basa en el azar. Las probabilidades de obtener premio pueden consultarse en los canales oficiales de Loterías y Apuestas del Estado.',
-            'primitiva'        => 'La participación en La Primitiva se basa en el azar. Las probabilidades de obtener premio pueden consultarse en los canales oficiales de Loterías y Apuestas del Estado.',
-            'bonoloto'         => 'La participación en Bonoloto se basa en el azar. Las probabilidades de obtener premio pueden consultarse en los canales oficiales de Loterías y Apuestas del Estado.',
-            'quiniela'         => 'La participación en La Quiniela se basa en el azar. Las probabilidades de obtener premio pueden consultarse en los canales oficiales de Loterías y Apuestas del Estado.',
+            'loteria-nacional' => __( 'La participación en Lotería Nacional se basa en el azar. Las probabilidades de obtener premio pueden consultarse en los canales oficiales de Loterías y Apuestas del Estado.', 'lotto-lae-compliance' ),
+            'euromillones'     => __( 'La participación en Euromillones se basa en el azar. Las probabilidades de obtener premio pueden consultarse en los canales oficiales de Loterías y Apuestas del Estado.', 'lotto-lae-compliance' ),
+            'primitiva'        => __( 'La participación en La Primitiva se basa en el azar. Las probabilidades de obtener premio pueden consultarse en los canales oficiales de Loterías y Apuestas del Estado.', 'lotto-lae-compliance' ),
+            'bonoloto'         => __( 'La participación en Bonoloto se basa en el azar. Las probabilidades de obtener premio pueden consultarse en los canales oficiales de Loterías y Apuestas del Estado.', 'lotto-lae-compliance' ),
+            'quiniela'         => __( 'La participación en La Quiniela se basa en el azar. Las probabilidades de obtener premio pueden consultarse en los canales oficiales de Loterías y Apuestas del Estado.', 'lotto-lae-compliance' ),
         );
 
         $message = isset( $messages[ $sorteo ] )
             ? $messages[ $sorteo ]
-            : 'La participación en los juegos de lotería se basa en el azar. Las probabilidades de obtener premio pueden consultarse en los canales oficiales de Loterías y Apuestas del Estado.';
-
+            : __( 'La participación en los juegos de lotería se basa en el azar. Las probabilidades de obtener premio pueden consultarse en los canales oficiales de Loterías y Apuestas del Estado.', 'lotto-lae-compliance' );
+                
         $data = array(
             'sorteo'  => $sorteo,
             'message' => $message,
         );
 
-        return $this->render_template( 'probability-disclaimer-block', $data ); 
+        return $this->render_template( 'probability-disclaimer-block', $data );
     }
 
     private function render_template( $template_name, $data = array() ) {

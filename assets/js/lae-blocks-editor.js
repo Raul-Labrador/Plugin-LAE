@@ -6,6 +6,7 @@
     var components = wp.components;
     var PanelBody = components.PanelBody;
     var SelectControl = components.SelectControl;
+    var __ = wp.i18n.__;
 
     // Function to register blocks that have NO configuration
     function registerLAEBlock(name, title, icon) {
@@ -20,13 +21,12 @@
         });
     }
 
-    registerLAEBlock('age-warning', 'Aviso +18 LAE', 'warning');
-    registerLAEBlock('exclusion-links', 'Enlaces Autoexclusión', 'external');
-    registerLAEBlock('operator-info', 'Datos del Operador LAE', 'id');
+    registerLAEBlock('age-warning', __('Aviso +18 LAE', 'lotto-lae-compliance'), 'warning');
+    registerLAEBlock('exclusion-links', __('Enlaces Autoexclusión', 'lotto-lae-compliance'), 'external');
+    
 
-    // Responsible Gaming Banner (SIZE Settings)
     registerBlockType('lae/responsible-gaming', {
-        title: 'Banner Juego Responsable',
+        title: __('Banner Juego Responsable', 'lotto-lae-compliance'),
         icon: 'shield',
         category: 'widgets',
         attributes: {
@@ -35,14 +35,14 @@
         edit: function(props) {
             return el(wp.element.Fragment, {},
                 el(InspectorControls, {},
-                    el(PanelBody, { title: 'Configuración del Banner' },
+                    el(PanelBody, { title: __('Configuración del Banner', 'lotto-lae-compliance') },
                         el(SelectControl, {
-                            label: 'Tamaño del Banner',
+                            label: __('Tamaño del Banner', 'lotto-lae-compliance'),
                             value: props.attributes.size,
                             options: [
-                                { label: 'Pequeño', value: 'small' },
-                                { label: 'Mediano', value: 'medium' },
-                                { label: 'Grande', value: 'large' }
+                                { label: __('Pequeño', 'lotto-lae-compliance'), value: 'small' },
+                                { label: __('Mediano', 'lotto-lae-compliance'), value: 'medium' },
+                                { label: __('Grande', 'lotto-lae-compliance'), value: 'large' }
                             ],
                             onChange: function(newSize) { props.setAttributes({ size: newSize }); }
                         })
@@ -56,7 +56,7 @@
 
     // Probabilities Notice (DRAWING Settings)
     registerBlockType('lae/probability-disclaimer', {
-        title: 'Aviso de Probabilidades',
+        title: __('Aviso de Probabilidades', 'lotto-lae-compliance'),
         icon: 'info',
         category: 'widgets',
         attributes: {
@@ -65,16 +65,16 @@
         edit: function(props) {
             return el(wp.element.Fragment, {},
                 el(InspectorControls, {},
-                    el(PanelBody, { title: 'Configuración del Aviso' },
+                    el(PanelBody, { title: __('Configuración del Aviso', 'lotto-lae-compliance') },
                         el(SelectControl, {
-                            label: 'Sorteo a mostrar',
+                            label: __('Sorteo a mostrar', 'lotto-lae-compliance'),
                             value: props.attributes.sorteo,
                             options: [
-                                { label: 'Lotería Nacional', value: 'loteria-nacional' },
-                                { label: 'Euromillones', value: 'euromillones' },
-                                { label: 'La Primitiva', value: 'primitiva' },
-                                { label: 'Bonoloto', value: 'bonoloto' },
-                                { label: 'La Quiniela', value: 'quiniela' }
+                                { label: __('Lotería Nacional', 'lotto-lae-compliance'), value: 'loteria-nacional' },
+                                { label: __('Euromillones', 'lotto-lae-compliance'), value: 'euromillones' },
+                                { label: __('La Primitiva', 'lotto-lae-compliance'), value: 'primitiva' },
+                                { label: __('Bonoloto', 'lotto-lae-compliance'), value: 'bonoloto' },
+                                { label: __('La Quiniela', 'lotto-lae-compliance'), value: 'quiniela' }
                             ],
                             onChange: function(newSorteo) { props.setAttributes({ sorteo: newSorteo }); }
                         })
