@@ -35,7 +35,7 @@ class LAE_Compliance_Hooks {
     }
 
     public function render_footer_bar() {
-        // Escudos de compatibilidad
+        // Compatibility Shields
         if ( is_admin() ) { return; }
         if ( wp_doing_ajax() ) { return; }
         if ( defined( 'REST_REQUEST' ) && REST_REQUEST ) { return; }

@@ -22,7 +22,6 @@ class LAE_Compliance_Blocks {
         $blocks = array(
             'age-warning',
             'exclusion-links',
-            'operator-info',
             'responsible-gaming',
             'probability-disclaimer',
         );
@@ -40,7 +39,7 @@ class LAE_Compliance_Blocks {
         wp_enqueue_script(
             'lae-blocks-editor',
             LAE_COMPLIANCE_URL . 'assets/js/lae-blocks-editor.js',
-            array( 'wp-blocks', 'wp-element', 'wp-server-side-render', 'wp-components', 'wp-block-editor' ),
+            array( 'wp-blocks', 'wp-element', 'wp-server-side-render', 'wp-components', 'wp-block-editor', 'wp-i18n' ),
             LAE_COMPLIANCE_VERSION,
             true
         );

@@ -8,6 +8,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
     var originalContent = content.innerHTML;
 
+    var i18n = window.laeComplianceI18n || {
+        deniedTitle: "Acceso no permitido",
+        deniedLine1: "Lo sentimos, este sitio está restringido a mayores de 18 años.",
+        deniedLine2: "No puedes acceder al contenido."
+    };
+
     function getCookie(name) {
         var match = document.cookie.match(new RegExp("(^| )" + name + "=([^;]+)"));
         return match ? match[2] : null;
@@ -38,15 +44,20 @@ document.addEventListener("DOMContentLoaded", function () {
 
         content.innerHTML = `
             <div class="lae-age-denied-message">
-                <h1 id="lae-age-title" class="lae-age-title">Acceso no permitido</h2>
+                <h1 id="lae-age-title" class="lae-age-title">${i18n.deniedTitle}</h1>
                 <div class="lae-age-text">
-                    <p>Lo sentimos, este sitio está restringido a mayores de 18 años.</p>
-                    <p>No puedes acceder al contenido.</p>
+                    <p>${i18n.deniedLine1}</p>
+                    <p>${i18n.deniedLine2}</p>
                 </div>
             </div>
         `;
 
         showAgeGate();
+    }
+
+    function getCookie(name) {
+        var match = document.cookie.match(new RegExp("(^| )" + name + "=([^;]+)"));
+        return match ? match[2] : null;
     }
 
     function restoreOriginalAgeGate() {
@@ -95,12 +106,30 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
         }
 
-        // Si se ha recargado o cambiado de página, volvemos al popup normal
         sessionStorage.removeItem("lae_age_denied");
         restoreOriginalAgeGate();
 
-        // Mostramos el popup inmediatamente, sin esperar a ningún plugin de cookies
-        showAgeGate();
+        if (!isCookiesYesVisible()) {
+            showAgeGate();
+            return;
+        }
+
+        var tries = 0;
+        var maxTries = 100;
+        var interval = setInterval(function () {
+            tries++;
+
+            if (!isCookiesYesVisible()) {
+                clearInterval(interval);
+                showAgeGate();
+                return;
+            }
+
+            if (tries >= maxTries) {
+                clearInterval(interval);
+                showAgeGate();
+            }
+        }, 200);
     }
 
     function bindButtons() {

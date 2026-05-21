@@ -32,25 +32,34 @@ $btn_txt_color = ! empty( $options['age_gate_button_text_color'] ) ? $options['a
 </style>
 
 <div id="lae-age-gate-overlay" class="lae-age-gate-overlay" style="display: none;" role="dialog" aria-modal="true" aria-labelledby="lae-age-title">
-    
+
     <div class="lae-age-gate-content">
-        
+
         <div class="lae-age-welcome">
-            Bienvenido a <strong><?php echo esc_html( $admin_name ); ?></strong>
+            <?php
+            printf(
+                esc_html__( 'Bienvenido a %s', 'lotto-lae-compliance' ),
+                '<strong>' . esc_html( $admin_name ) . '</strong>'
+            );
+            ?>
         </div>
 
-        <p id="lae-age-title" class="h2 lae-age-title">¿Eres mayor de 18 años?</p>
+        <p id="lae-age-title" class="h2 lae-age-title">
+            <?php echo esc_html__( '¿Eres mayor de 18 años?', 'lotto-lae-compliance' ); ?>
+        </p>
 
         <div class="lae-age-text">
-            <p>El acceso y uso de este sitio web está estrictamente prohibido a menores de 18 años.</p>
+            <p><?php echo esc_html__( 'El acceso y uso de este sitio web está estrictamente prohibido a menores de 18 años.', 'lotto-lae-compliance' ); ?></p>
         </div>
 
         <div class="lae-age-gate-buttons">
-            <button id="lae-btn-yes" class="lae-btn-yes">SÍ, SOY MAYOR</button>
-            <button id="lae-btn-no" class="lae-btn-no">NO, SALIR</button>
+            <button id="lae-btn-yes" class="lae-btn-yes"><?php echo esc_html__( 'SÍ, SOY MAYOR', 'lotto-lae-compliance' ); ?></button>
+            <button id="lae-btn-no" class="lae-btn-no"><?php echo esc_html__( 'NO, SALIR', 'lotto-lae-compliance' ); ?></button>
         </div>
 
-        <p class="lae-cookie-warning">Al confirmar, aceptas el uso de una cookie necesaria para guardar tu preferencia de acceso.</p>
+        <p class="lae-cookie-warning">
+            <?php echo esc_html__( 'Al confirmar, aceptas el uso de una cookie necesaria para guardar tu preferencia de acceso.', 'lotto-lae-compliance' ); ?>
+        </p>
 
     </div>
 

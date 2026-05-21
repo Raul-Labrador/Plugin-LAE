@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Comprobar si existe el archivo JSON
+# Check if the JSON file exists
 if [ ! -f "cliente-config.json" ]; then
     echo "Error: No se encuentra el archivo cliente-config.json"
     exit 1
@@ -13,41 +13,43 @@ TITULAR=$(jq -r '.holder_name' cliente-config.json)
 NIF=$(jq -r '.holder_nif' cliente-config.json)
 DIRECCION=$(jq -r '.address' cliente-config.json)
 
-# Instalar y activar el plugin
+# Install and activate the plugin
 echo "Instalando plugin LAE Compliance..."
-# Ajusta esta ruta a donde tengáis el zip en vuestro entorno de pruebas
+# Adjust this path to where you have the zip file in your test environment.
+
+# Uncomment the following line to perform the installation
 # wp plugin install ./lotto-lae-compliance.zip --activate
 
-# Poblar ajustes en nuestro array de opciones
+# Populate settings in our array of options
 echo "Configurando opciones del plugin"
-# Creamos la opción base si no existe
+# We create the base option if it doesn't exist.
 wp option add lae_compliance_options '{"enable_age_gate":1, "footer_is_sticky":1}' --format=json
 
-# Inyectamos los datos del JSON
+# We inject the JSON data
 wp option patch insert lae_compliance_options admin_name "$NOMBRE_COMERCIAL"
 wp option patch insert lae_compliance_options admin_number "$NUMERO_ADMIN"
 wp option patch insert lae_compliance_options holder_name "$TITULAR"
 wp option patch insert lae_compliance_options holder_nif "$NIF"
 wp option patch insert lae_compliance_options address "$DIRECCION"
 
-# Crear páginas legales (Llamando a vuestra clase exacta)
+# Create legal pages
 echo "Creando páginas legales si no existen"
 wp eval "LAE_Compliance_Pages::create_all_if_not_exist();"
 
-# Asignar páginas a un menú de Footer
+# Assign pages to a Footer menu
 echo "Configurando el menú"
-# Creamos el menú (si ya existe, el comando fallará pero el script seguirá gracias al || true)
+# We create the menu
 wp menu create "Legal Footer" || true
 
-# Lista de slugs que tenéis en vuestro PHP
+# List of slugs that you have in your PHP
 PAGES=("juego-responsable" "autoexclusion" "politica-devoluciones-loteria" "identificacion-operador")
 
 for SLUG in "${PAGES[@]}"; do
-    # Obtenemos el ID de la página recién creada
+    # We obtain the ID of the newly created page
     PAGE_ID=$(wp post list --post_type=page --name="$SLUG" --field=ID --format=ids)
     
     if [ ! -z "$PAGE_ID" ]; then
-        # La añadimos al menú
+        # We added it to the menu
         wp menu item add-post "Legal Footer" "$PAGE_ID"
         echo "   -> Página '$SLUG' añadida al menú."
     fi
