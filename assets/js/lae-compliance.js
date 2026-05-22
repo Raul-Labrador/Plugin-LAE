@@ -55,11 +55,6 @@ document.addEventListener("DOMContentLoaded", function () {
         showAgeGate();
     }
 
-    function getCookie(name) {
-        var match = document.cookie.match(new RegExp("(^| )" + name + "=([^;]+)"));
-        return match ? match[2] : null;
-    }
-
     function restoreOriginalAgeGate() {
         content.innerHTML = originalContent;
 
@@ -67,37 +62,6 @@ document.addEventListener("DOMContentLoaded", function () {
         btnNo = document.getElementById("lae-btn-no");
 
         bindButtons();
-    }
-
-    function isCookiesYesVisible() {
-        var selectors = [
-            "#cookie-law-info-bar",
-            ".cky-consent-container",
-            ".cky-banner-container",
-            ".cky-modal",
-            ".cli-bar-container",
-            ".cky-notice"
-        ];
-
-        for (var i = 0; i < selectors.length; i++) {
-            var el = document.querySelector(selectors[i]);
-
-            if (el) {
-                var style = window.getComputedStyle(el);
-                var visible =
-                    style.display !== "none" &&
-                    style.visibility !== "hidden" &&
-                    style.opacity !== "0" &&
-                    el.offsetHeight > 0 &&
-                    el.offsetWidth > 0;
-
-                if (visible) {
-                    return true;
-                }
-            }
-        }
-
-        return false;
     }
 
     function initAgeGate() {
@@ -109,27 +73,7 @@ document.addEventListener("DOMContentLoaded", function () {
         sessionStorage.removeItem("lae_age_denied");
         restoreOriginalAgeGate();
 
-        if (!isCookiesYesVisible()) {
-            showAgeGate();
-            return;
-        }
-
-        var tries = 0;
-        var maxTries = 100;
-        var interval = setInterval(function () {
-            tries++;
-
-            if (!isCookiesYesVisible()) {
-                clearInterval(interval);
-                showAgeGate();
-                return;
-            }
-
-            if (tries >= maxTries) {
-                clearInterval(interval);
-                showAgeGate();
-            }
-        }, 200);
+        showAgeGate();
     }
 
     function bindButtons() {
@@ -149,4 +93,4 @@ document.addEventListener("DOMContentLoaded", function () {
 
     bindButtons();
     initAgeGate();
-});
+});S
