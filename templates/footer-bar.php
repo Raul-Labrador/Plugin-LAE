@@ -21,10 +21,25 @@ $position    = ! empty( $options['footer_position'] ) ? $options['footer_positio
 ?>
 
 <style>
+    /* Forzamos el color de todos los enlaces normales del footer */
+    #lae-footer-bar a.lae-footer-link {
+        color: <?php echo esc_attr( $text_color ); ?> !important;
+    }
+
+    /* Blindamos los botones contra temas que inyectan fondos blancos */
+    #lae-footer-bar a.lae-badge {
+        color: <?php echo esc_attr( $text_color ); ?> !important;
+        border: 1px solid <?php echo esc_attr( $text_color ); ?> !important;
+        background-color: transparent !important;
+        text-decoration: none !important;
+    }
+
+    /* Efectos Hover */
     #lae-footer-bar a.lae-footer-link:hover,
     #lae-footer-bar a.lae-badge:hover {
         color: <?php echo esc_attr( $hover_color ); ?> !important;
         border-color: <?php echo esc_attr( $hover_color ); ?> !important;
+        background-color: transparent !important;
     }
 </style>
 
@@ -35,10 +50,11 @@ $position    = ! empty( $options['footer_position'] ) ? $options['footer_positio
             <strong style="border-color: <?php echo esc_attr( $text_color ); ?>;">+18</strong>
         </span>
 
-        <a href="https://www.juegoseguro.es" target="_blank" rel="noopener noreferrer" class="lae-badge" style="color: <?php echo esc_attr($text_color); ?>; border-color: <?php echo esc_attr($text_color); ?>;">
+        <a href="https://www.juegoseguro.es" target="_blank" rel="noopener noreferrer" class="lae-badge">
             <?php echo esc_html__( 'Juego Seguro', 'lotto-lae-compliance' ); ?>
         </a>
-        <a href="https://www.loteriasyapuestas.es/es" target="_blank" rel="noopener noreferrer" class="lae-badge" style="color: <?php echo esc_attr($text_color); ?>; border-color: <?php echo esc_attr($text_color); ?>;">
+
+        <a href="https://www.loteriasyapuestas.es/es" target="_blank" rel="noopener noreferrer" class="lae-badge">
             <?php echo esc_html__( 'Juego Responsable', 'lotto-lae-compliance' ); ?>
         </a>
     </div>
@@ -48,19 +64,19 @@ $position    = ! empty( $options['footer_position'] ) ? $options['footer_positio
     </div>
 
     <div class="lae-compliance-links">
-        <a href="<?php echo esc_url( site_url('/juego-responsable/') ); ?>" class="lae-footer-link" style="color: <?php echo esc_attr($text_color); ?>;">
+        <a href="<?php echo esc_url( site_url('/juego-responsable/') ); ?>" class="lae-footer-link">
             <?php echo esc_html__( 'Política de Juego', 'lotto-lae-compliance' ); ?>
         </a> 
         <span class="lae-separator">|</span>
-        <a href="<?php echo esc_url( site_url('/politica-devoluciones-loteria/') ); ?>" class="lae-footer-link" style="color: <?php echo esc_attr($text_color); ?>;">
+        <a href="<?php echo esc_url( site_url('/envios-y-pagos/') ); ?>" class="lae-footer-link">
             <?php echo esc_html__( 'Política de Devoluciones', 'lotto-lae-compliance' ); ?>
         </a>
         <span class="lae-separator">|</span>
-        <a href="<?php echo esc_url( home_url('/autoexclusion/') ); ?>" class="lae-footer-link lae-fw-bold" style="color: <?php echo esc_attr($text_color); ?>;">
+        <a href="<?php echo esc_url( home_url('/autoexclusion/') ); ?>" class="lae-footer-link lae-fw-bold">
             <?php echo esc_html__( 'RGIAJ', 'lotto-lae-compliance' ); ?>
         </a>
         <span class="lae-separator">|</span>
-        <a href="tel:024" class="lae-footer-link lae-fw-bold" style="color: <?php echo esc_attr($text_color); ?>;">☎ 024</a>
+        <a href="tel:024" class="lae-footer-link lae-fw-bold">☎ 024</a>
     </div>
 
 </div>
